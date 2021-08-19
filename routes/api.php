@@ -33,4 +33,5 @@ Route::delete('/technicians/{id}', [TechnicianController::class, 'delete']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/technicians', [TechnicianController::class, 'read']);
+    Route::get('/user', [AuthController::class, 'user']);
 });

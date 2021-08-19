@@ -16439,7 +16439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _views_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./views/Login */ "./resources/js/views/Login.js");
-/* harmony import */ var _views_TechnicianDashboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/TechnicianDashboard */ "./resources/js/views/TechnicianDashboard.js");
+/* harmony import */ var _views_Technicians__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Technicians */ "./resources/js/views/Technicians.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -16458,7 +16458,7 @@ var AppRouter = function AppRouter() {
           component: _views_Login__WEBPACK_IMPORTED_MODULE_1__.default
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
           path: "/technicians",
-          component: _views_TechnicianDashboard__WEBPACK_IMPORTED_MODULE_2__.default
+          component: _views_Technicians__WEBPACK_IMPORTED_MODULE_2__.default
         })]
       })
     })
@@ -16778,10 +16778,10 @@ var LoginForm = function LoginForm(_ref3) {
 
 /***/ }),
 
-/***/ "./resources/js/views/TechnicianDashboard.js":
-/*!***************************************************!*\
-  !*** ./resources/js/views/TechnicianDashboard.js ***!
-  \***************************************************/
+/***/ "./resources/js/views/Technicians.js":
+/*!*******************************************!*\
+  !*** ./resources/js/views/Technicians.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16790,21 +16790,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Grid/Grid.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
 /* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../http */ "./resources/js/http.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
-var TechnicianDashboard = function TechnicianDashboard() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-      children: "This is a technician dashboard."
+
+
+var useTechniciansStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_3__.default)(function (theme) {});
+
+var Technicians = function Technicians(_ref) {
+  var history = _ref.history;
+  var classes = useTechniciansStyles();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, {
+      container: true
     })
   });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TechnicianDashboard);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Technicians);
 
 /***/ }),
 

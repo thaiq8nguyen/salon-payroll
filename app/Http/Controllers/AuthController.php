@@ -62,4 +62,9 @@ class AuthController extends Controller
 
         return response()->json(['error' => 'authentication','description' => 'logging out error']);
     }
+
+    public function user()
+    {
+        return response()->json(['message' => 'User info', 'user' => Auth::user()]);
+    }
 }
