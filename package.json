@@ -15,6 +15,13 @@
         "bootstrap": "^4.6.0",
         "browser-sync": "^2.27.5",
         "browser-sync-webpack-plugin": "^2.3.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.24.0",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-prettier": "^3.4.0",
+        "eslint-plugin-react": "^7.24.0",
+        "eslint-plugin-react-hooks": "^4.2.0",
         "jquery": "^3.6",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
@@ -29,6 +36,7 @@
     },
     "dependencies": {
         "@material-ui/core": "^4.12.3",
+        "formik": "^2.2.9",
         "react-router-dom": "^5.2.0"
     }
 }

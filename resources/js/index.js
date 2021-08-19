@@ -1,11 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom"
-import AppRouter from "./AppRouter"
+import ReactDOM from "react-dom";
+import AppRouter from "./AppRouter";
 
-
-
-
-if(document.getElementById("app")){
-    
-    ReactDOM.render(<AppRouter/>, document.getElementById("app"))
+if (document.getElementById("app")) {
+    ReactDOM.render(<AppRouter />, document.getElementById("app"));
 }
