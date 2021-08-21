@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = ({ history }) => {
     const classes = useStyles();
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token") || null;
 
     useEffect(() => {
         if (token) {
@@ -19,7 +19,7 @@ const Login = ({ history }) => {
     }, [token]);
 
     const login = async (credential) => {
-        const response = await client.post("/api/login", credential);
+        const response = await client.post("/login", credential);
 
         localStorage.setItem("token", response.data.token);
     };
@@ -61,7 +61,7 @@ const formStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
     },
 }));
-const LoginForm = ({ values, handleChange, hancleClose, handleSubmit }) => {
+const LoginForm = ({ values, handleChange, handleSubmit }) => {
     const classes = formStyles();
     return (
         <Grid container>

@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const baseUrl =
+const baseURL =
     process.env.NODE_ENV === "production"
         ? process.env.MIX_PRODUCTION_BASE_URL
         : process.env.MIX_DEV_BASE_URL;
 
 export const client = axios.create({
-    baseUrl,
+    baseURL,
     header: {
         Accept: "application/json",
         "Content-type": "application/json",
@@ -14,8 +14,21 @@ export const client = axios.create({
 });
 
 export const authClient = axios.create({
-    baseUrl,
+    baseURL,
     header: {
+        Accept: "application/json",
         "Content-type": "application/json",
     },
 });
+
+authClient.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("token") || null;
+        config.headers.Authorization = `Bearer ${token}`;
+
+        return config;
+    },
+    (error) => {
+        Promise.reject(error);
+    }
+);
