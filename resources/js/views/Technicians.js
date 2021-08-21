@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
     Button,
+    CssBaseline,
     Grid,
     Paper,
     Table,
@@ -16,8 +17,18 @@ import { authClient } from "../http";
 
 // Components
 import EditTechnician from "../components/EditTechnician";
+import Navbar from "../components/Navbar";
 
-const useTechniciansStyles = makeStyles((theme) => {});
+const useTechniciansStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3, 2),
+    },
+    offset: theme.mixins.toolbar,
+}));
 const Technicians = ({ history }) => {
     const classes = useTechniciansStyles();
 
@@ -49,80 +60,101 @@ const Technicians = ({ history }) => {
 
     return (
         <>
-            <Grid container spacing={1}>
-                <Grid item xs={12}>
-                    <Button color="primary" size="medium" variant="contained">
-                        Add Technician
-                    </Button>
-                </Grid>
-                <Grid item xs={12}>
-                    {technicians.length > 0 && (
-                        <TableContainer>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>First name</TableCell>
-                                        <TableCell>Last name</TableCell>
-                                        <TableCell>Email</TableCell>
-                                        <TableCell>Phone number</TableCell>
-                                        <TableCell>Active</TableCell>
-                                        <TableCell>Contractor</TableCell>
-                                        <TableCell>Admin</TableCell>
-                                        <TableCell>Edit</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {technicians.map((technician) => (
-                                        <TableRow key={technician.id}>
-                                            <TableCell>
-                                                {technician.first_name}
-                                            </TableCell>
-                                            <TableCell>
-                                                {technician.last_name}
-                                            </TableCell>
-                                            <TableCell>
-                                                {technician.email || "None"}
-                                            </TableCell>
-                                            <TableCell>
-                                                {technician.phone_number ||
-                                                    "None"}
-                                            </TableCell>
-                                            <TableCell>
-                                                {technician.is_active
-                                                    ? "Yes"
-                                                    : "No"}
-                                            </TableCell>
-                                            <TableCell>
-                                                {technician.is_contractor
-                                                    ? "Yes"
-                                                    : "No"}
-                                            </TableCell>
-                                            <TableCell>
-                                                {technician.is_admin
-                                                    ? "Yes"
-                                                    : "No"}
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button
-                                                    color="primary"
-                                                    onClick={() => {
-                                                        setEditTechnician(
-                                                            technician
-                                                        );
-                                                        setEditDialog(true);
-                                                    }}
-                                                >
-                                                    Edit
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    )}
+            <CssBaseline />
+            <Grid container>
+                <Navbar />
+                <Grid item xs={12} className={classes.content}>
+                    <div className={classes.offset} />
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Button
+                                color="primary"
+                                size="medium"
+                                variant="contained"
+                            >
+                                Add Technician
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            {technicians.length > 0 && (
+                                <TableContainer>
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>
+                                                    First name
+                                                </TableCell>
+                                                <TableCell>Last name</TableCell>
+                                                <TableCell>Email</TableCell>
+                                                <TableCell>
+                                                    Phone number
+                                                </TableCell>
+                                                <TableCell>Active</TableCell>
+                                                <TableCell>
+                                                    Contractor
+                                                </TableCell>
+                                                <TableCell>Admin</TableCell>
+                                                <TableCell>Edit</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {technicians.map((technician) => (
+                                                <TableRow key={technician.id}>
+                                                    <TableCell>
+                                                        {technician.first_name}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {technician.last_name}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {technician.email ||
+                                                            "None"}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {technician.phone_number ||
+                                                            "None"}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {technician.is_active
+                                                            ? "Yes"
+                                                            : "No"}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {technician.is_contractor
+                                                            ? "Yes"
+                                                            : "No"}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {technician.is_admin
+                                                            ? "Yes"
+                                                            : "No"}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Button
+                                                            color="primary"
+                                                            onClick={() => {
+                                                                setEditTechnician(
+                                                                    technician
+                                                                );
+                                                                setEditDialog(
+                                                                    true
+                                                                );
+                                                            }}
+                                                        >
+                                                            Edit
+                                                        </Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            )}
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
+
             {editTechnician && (
                 <EditTechnician
                     technician={editTechnician}

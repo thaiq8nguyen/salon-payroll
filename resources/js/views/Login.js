@@ -22,6 +22,8 @@ const Login = ({ history }) => {
         const response = await client.post("/login", credential);
 
         localStorage.setItem("token", response.data.token);
+
+        history.push("/technicians");
     };
 
     return (
