@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core";
 import { authClient } from "../http";
 
 // Components
+import AddTechnician from "../components/AddTechnician";
 import EditTechnician from "../components/EditTechnician";
 import Navbar from "../components/Navbar";
 
@@ -42,9 +43,15 @@ const Technicians = ({ history }) => {
 
         getTechnicians();
     }, []);
-
+    const [newDialog, setNewDialog] = useState(false);
     const [editDialog, setEditDialog] = useState(false);
     const [editTechnician, setEditTechnician] = useState();
+
+    const onAddCompleted = (newTechnician) => {
+        const newTechnicians = [...technicians, newTechnician];
+        setTechnicians(newTechnicians);
+        setNewDialog(false);
+    };
 
     // update technicians array to include the edited technician
     const onEditCompleted = (editedTechnician) => {
@@ -71,6 +78,7 @@ const Technicians = ({ history }) => {
                                 color="primary"
                                 size="medium"
                                 variant="contained"
+                                onClick={() => setNewDialog(true)}
                             >
                                 Add Technician
                             </Button>
@@ -163,6 +171,12 @@ const Technicians = ({ history }) => {
                     handleEditCompleted={onEditCompleted}
                 />
             )}
+
+            <AddTechnician
+                open={newDialog}
+                handleClose={() => setNewDialog(false)}
+                handleAddCompleted={onAddCompleted}
+            />
         </>
     );
 };

@@ -4,7 +4,6 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     FormControlLabel,
     Grid,
@@ -14,41 +13,36 @@ import {
 import { makeStyles } from "@material-ui/core";
 import { Formik } from "formik";
 import { authClient } from "../http";
-const EditTechnician = ({
-    technician,
-    open,
-    handleClose,
-    handleEditCompleted,
-}) => {
-    const handleSubmit = async (changes) => {
+const AddTechnician = ({ open, handleClose, handleAddCompleted }) => {
+    const handleSubmit = async (technician) => {
         try {
-            const editedTechnician = await authClient.put(
-                `/technicians/${technician.id}`,
-                changes
+            const newTechnician = await authClient.post(
+                "/technicians",
+                technician
             );
 
-            handleEditCompleted(editedTechnician.data);
+            handleAddCompleted(newTechnician.data);
         } catch (error) {
             console.log(error);
         }
     };
-
     return (
         <>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Edit</DialogTitle>
+                <DialogTitle>New</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={{
-                            first_name: technician.first_name,
-                            last_name: technician.last_name,
-                            email: technician.email,
-                            phone_number: technician.phone_number,
-                            is_active: technician.is_active,
+                            first_name: "",
+                            last_name: "",
+                            email: "",
+                            phone_number: "",
+                            is_active: true,
+                            is_contractor: false,
                         }}
                         onSubmit={handleSubmit}
                         children={(props) => (
-                            <EditTechnicianForm
+                            <NewTechnicianForm
                                 {...props}
                                 handleClose={handleClose}
                             />
@@ -59,8 +53,7 @@ const EditTechnician = ({
         </>
     );
 };
-
-const EditTechnicianForm = ({
+const NewTechnicianForm = ({
     values,
     handleBlur,
     handleChange,
@@ -124,6 +117,19 @@ const EditTechnicianForm = ({
                         label="Is active ?"
                     />
                 </Grid>
+                <Grid item xs={4}>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={values.is_contractor}
+                                id="is_contractor"
+                                name="is_contractor"
+                                onChange={handleChange}
+                            />
+                        }
+                        label="Is contractor ?"
+                    />
+                </Grid>
             </Grid>
             <DialogActions>
                 <Button color="primary" onClick={handleClose}>
@@ -136,4 +142,5 @@ const EditTechnicianForm = ({
         </>
     );
 };
-export default EditTechnician;
+
+export default AddTechnician;
