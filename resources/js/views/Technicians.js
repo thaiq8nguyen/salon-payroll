@@ -55,13 +55,22 @@ const Technicians = ({ history }) => {
 
     // update technicians array to include the edited technician
     const onEditCompleted = (editedTechnician) => {
-        const editedTechnicians = technicians.map((technician) =>
+        const newTechnicians = technicians.map((technician) =>
             technician.id === editedTechnician.id
                 ? editedTechnician
                 : technician
         );
 
-        setTechnicians(editedTechnicians);
+        setTechnicians(newTechnicians);
+        setEditDialog(false);
+    };
+
+    const onDeleteCompleted = (deletedTechnician) => {
+        const newTechnicians = technicians.filter(
+            (technician) => technician.id !== deletedTechnician.id
+        );
+
+        setTechnicians(newTechnicians);
         setEditDialog(false);
     };
 
@@ -169,6 +178,7 @@ const Technicians = ({ history }) => {
                     open={editDialog}
                     handleClose={() => setEditDialog(false)}
                     handleEditCompleted={onEditCompleted}
+                    handleDeleteCompleted={onDeleteCompleted}
                 />
             )}
 

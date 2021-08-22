@@ -19,6 +19,7 @@ const EditTechnician = ({
     open,
     handleClose,
     handleEditCompleted,
+    handleDeleteCompleted,
 }) => {
     const handleSubmit = async (changes) => {
         try {
@@ -28,6 +29,18 @@ const EditTechnician = ({
             );
 
             handleEditCompleted(editedTechnician.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const deletedTechnician = await authClient.delete(
+                `/technicians/${technician.id}`
+            );
+
+            handleDeleteCompleted(technician);
         } catch (error) {
             console.log(error);
         }
@@ -51,6 +64,7 @@ const EditTechnician = ({
                             <EditTechnicianForm
                                 {...props}
                                 handleClose={handleClose}
+                                handleDelete={handleDelete}
                             />
                         )}
                     />
@@ -60,13 +74,16 @@ const EditTechnician = ({
     );
 };
 
+const useEditTechnicianFormStyles = makeStyles((theme) => ({}));
 const EditTechnicianForm = ({
     values,
     handleBlur,
     handleChange,
     handleClose,
     handleSubmit,
+    handleDelete,
 }) => {
+    const classes = useEditTechnicianFormStyles();
     return (
         <>
             <Grid container spacing={2}>
@@ -126,6 +143,9 @@ const EditTechnicianForm = ({
                 </Grid>
             </Grid>
             <DialogActions>
+                <Button color="secondary" onClick={handleDelete}>
+                    Delete
+                </Button>
                 <Button color="primary" onClick={handleClose}>
                     Cancel
                 </Button>
