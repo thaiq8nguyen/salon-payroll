@@ -28,6 +28,12 @@ const Navbar = () => {
                 <Typography variant="h5" className={classes.title}>
                     Payroll
                 </Typography>
+                <Button color="inherit" href="/technicians">
+                    Technicians
+                </Button>
+                <Button color="inherit" href="/register">
+                    Register
+                </Button>
                 <Button color="inherit" onClick={logout}>
                     Log out
                 </Button>
