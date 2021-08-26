@@ -41,9 +41,28 @@ class SaleController extends Controller
 
         $response = ['sale_id' => $addedSale->id];
 
-        return response()->json(['success' => true, 'message'=> 'technician sale is added', 'data' => $response ]);
+        return response()->json(['success' => true, 'message'=> 'technician sale has been added', 'data' => $response ]);
 
         
+    }
+
+    public function storeAll(Request $request)
+    {
+        $technicians = [];
+        foreach ($request['technicians'] as $technician) {
+            $addedSale = Sale::create(['technician_id' => $technician['technician_id'], 'date' => $request['date']]);
+
+            array_push($technicians, ['technician_id' => $technician['technician_id'], 'sale_id' => $addedSale->id]);
+            foreach($technician['sales'] as $sale ){
+                $saleItem = SaleItem::create(['sale_id' => $addedSale->id, 'item_id' => $sale['item_id'], 'amount' => $sale['amount']]);
+            }
+        }
+        
+        $response = ['date' => $request['date'], 'technicians' => $technicians];
+
+
+
+        return response()->json(['success' => true, 'message' => 'technician sales have been added', 'data' => $response],201);
     }
 
     /**

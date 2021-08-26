@@ -37,4 +37,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 
     Route::resource('sales', SaleController::class);
+    Route::post('/all-sales', [SaleController::class, 'storeAll']);
 });

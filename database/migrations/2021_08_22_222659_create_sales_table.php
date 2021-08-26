@@ -17,7 +17,7 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('technician_id')->nullable();
-            $table->foreign('technician_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('technician_id')->references('id')->on('technicians')->onUpdate('cascade')->onDelete('cascade');
             $table->date("date")->default(Carbon::now());
             $table->text("note")->nullable();
             $table->timestamps();
