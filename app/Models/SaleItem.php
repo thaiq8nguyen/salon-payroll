@@ -10,5 +10,5 @@ class SaleItem extends Model
     use HasFactory;
     
     protected $fillable = ['sale_id', 'item_id', 'amount'];
-    protected $hidden = ['id','created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 }

@@ -36,7 +36,9 @@
     },
     "dependencies": {
         "@material-ui/core": "^4.12.3",
+        "dayjs": "^1.10.6",
         "formik": "^2.2.9",
+        "react-calendar": "^3.4.0",
         "react-router-dom": "^5.2.0"
     }
 }
