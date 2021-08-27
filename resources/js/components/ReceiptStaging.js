@@ -16,20 +16,20 @@ const useSaleStagingStyles = makeStyles((theme) => ({
         justifyContent: "flex-end",
     },
 }));
-const SaleStaging = ({ technicians, handleSubmit }) => {
+const ReceiptStaging = ({ technicians, handleSubmit }) => {
     const classes = useSaleStagingStyles();
 
     return (
         <>
             <Card>
                 <CardContent>
-                    <Typography>Sales</Typography>
+                    <Typography>Receipts</Typography>
                 </CardContent>
                 <CardContent>
                     <List>
                         {technicians
                             .filter((technician) =>
-                                technician.hasOwnProperty("sale_amount")
+                                technician.hasOwnProperty("receipt_sale_amount")
                             )
                             .map((technician) => (
                                 <ListItem key={technician.id}>
@@ -38,19 +38,23 @@ const SaleStaging = ({ technicians, handleSubmit }) => {
                                         secondary={
                                             <>
                                                 <Typography component="span">
-                                                    Sale: $
-                                                    {technician.sale_amount}
+                                                    Sale Receipt: $
+                                                    {
+                                                        technician.receipt_sale_amount
+                                                    }
                                                 </Typography>
                                                 &nbsp;
-                                                {technician.tip_amount && (
+                                                {technician.receipt_tip_amount && (
                                                     <Typography
                                                         component="span"
                                                         style={{
                                                             marginLeft: 20,
                                                         }}
                                                     >
-                                                        Tip: $
-                                                        {technician.tip_amount}
+                                                        Tip Receipt: $
+                                                        {
+                                                            technician.receipt_tip_amount
+                                                        }
                                                     </Typography>
                                                 )}
                                             </>
@@ -71,4 +75,4 @@ const SaleStaging = ({ technicians, handleSubmit }) => {
     );
 };
 
-export default SaleStaging;
+export default ReceiptStaging;

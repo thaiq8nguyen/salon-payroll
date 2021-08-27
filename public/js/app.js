@@ -20979,10 +20979,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/AddSale.js":
-/*!********************************************!*\
-  !*** ./resources/js/components/AddSale.js ***!
-  \********************************************/
+/***/ "./resources/js/components/AddReceipt.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/AddReceipt.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21014,9 +21014,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var AddSale = function AddSale(_ref) {
+var AddReceipt = function AddReceipt(_ref) {
   var technician = _ref.technician,
       open = _ref.open,
+      receiptItems = _ref.receiptItems,
       handleClose = _ref.handleClose,
       handleSubmit = _ref.handleSubmit;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
@@ -21029,12 +21030,12 @@ var AddSale = function AddSale(_ref) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
           initialValues: {
             technician_id: technician.id,
-            sale_amount: "",
-            tip_amount: ""
+            receipt_sale_amount: "",
+            receipt_tip_amount: ""
           },
           onSubmit: handleSubmit,
           children: function children(props) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(AddSaleForm, _objectSpread(_objectSpread({}, props), {}, {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(AddReceiptForm, _objectSpread(_objectSpread({}, props), {}, {
               handleClose: handleClose
             }));
           }
@@ -21044,7 +21045,7 @@ var AddSale = function AddSale(_ref) {
   });
 };
 
-var AddSaleForm = function AddSaleForm(_ref2) {
+var AddReceiptForm = function AddReceiptForm(_ref2) {
   var values = _ref2.values,
       handleBlur = _ref2.handleBlur,
       handleChange = _ref2.handleChange,
@@ -21059,24 +21060,24 @@ var AddSaleForm = function AddSaleForm(_ref2) {
         xs: 6,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__.default, {
           id: "sale_amount",
-          label: "Sale amount",
-          name: "sale_amount",
+          label: "Receipt sale amount",
+          name: "receipt_sale_amount",
           onBlur: handleBlur,
           onChange: handleChange,
           type: "number",
-          value: values.sale_amount
+          value: values.receipt_sale_amount
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default, {
         item: true,
         xs: 6,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__.default, {
           id: "tip_amount",
-          label: "Tip amount",
-          name: "tip_amount",
+          label: "Receipt tip amount",
+          name: "receipt_tip_amount",
           onBlur: handleBlur,
           onChange: handleChange,
           type: "number",
-          value: values.tip_amount
+          value: values.receipt_tip_amount
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__.default, {
@@ -21092,7 +21093,7 @@ var AddSaleForm = function AddSaleForm(_ref2) {
   });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddSale);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddReceipt);
 
 /***/ }),
 
@@ -21309,10 +21310,10 @@ var NewTechnicianForm = function NewTechnicianForm(_ref3) {
 
 /***/ }),
 
-/***/ "./resources/js/components/EditSaleDialog.js":
-/*!***************************************************!*\
-  !*** ./resources/js/components/EditSaleDialog.js ***!
-  \***************************************************/
+/***/ "./resources/js/components/EditReceiptDialog.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/EditReceiptDialog.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21345,7 +21346,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var EditSaleDialog = function EditSaleDialog(_ref) {
+var EditReceiptDialog = function EditReceiptDialog(_ref) {
   var technician = _ref.technician,
       open = _ref.open,
       handleClose = _ref.handleClose,
@@ -21458,7 +21459,7 @@ var EditSaleForm = function EditSaleForm(_ref2) {
   });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditSaleDialog);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditReceiptDialog);
 
 /***/ }),
 
@@ -21822,10 +21823,10 @@ var Navbar = function Navbar() {
 
 /***/ }),
 
-/***/ "./resources/js/components/SaleStaging.js":
-/*!************************************************!*\
-  !*** ./resources/js/components/SaleStaging.js ***!
-  \************************************************/
+/***/ "./resources/js/components/ReceiptStaging.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/ReceiptStaging.js ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21858,7 +21859,7 @@ var useSaleStagingStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__.def
   };
 });
 
-var SaleStaging = function SaleStaging(_ref) {
+var ReceiptStaging = function ReceiptStaging(_ref) {
   var technicians = _ref.technicians,
       handleSubmit = _ref.handleSubmit;
   var classes = useSaleStagingStyles();
@@ -21866,12 +21867,12 @@ var SaleStaging = function SaleStaging(_ref) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__.default, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, {
-          children: "Sales"
+          children: "Receipts"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default, {
           children: technicians.filter(function (technician) {
-            return technician.hasOwnProperty("sale_amount");
+            return technician.hasOwnProperty("receipt_sale_amount");
           }).map(function (technician) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__.default, {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__.default, {
@@ -21879,13 +21880,13 @@ var SaleStaging = function SaleStaging(_ref) {
                 secondary: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, {
                     component: "span",
-                    children: ["Sale: $", technician.sale_amount]
-                  }), "\xA0", technician.tip_amount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, {
+                    children: ["Sale Receipt: $", technician.receipt_sale_amount]
+                  }), "\xA0", technician.receipt_tip_amount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, {
                     component: "span",
                     style: {
                       marginLeft: 20
                     },
-                    children: ["Tip: $", technician.tip_amount]
+                    children: ["Tip Receipt: $", technician.receipt_tip_amount]
                   })]
                 })
               })
@@ -21904,7 +21905,7 @@ var SaleStaging = function SaleStaging(_ref) {
   });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SaleStaging);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReceiptStaging);
 
 /***/ }),
 
@@ -22242,9 +22243,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
 /* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../http */ "./resources/js/http.js");
 /* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Navbar */ "./resources/js/components/Navbar.js");
-/* harmony import */ var _components_AddSale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/AddSale */ "./resources/js/components/AddSale.js");
-/* harmony import */ var _components_EditSaleDialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/EditSaleDialog */ "./resources/js/components/EditSaleDialog.js");
-/* harmony import */ var _components_SaleStaging__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/SaleStaging */ "./resources/js/components/SaleStaging.js");
+/* harmony import */ var _components_AddReceipt__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/AddReceipt */ "./resources/js/components/AddReceipt.js");
+/* harmony import */ var _components_EditReceiptDialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/EditReceiptDialog */ "./resources/js/components/EditReceiptDialog.js");
+/* harmony import */ var _components_ReceiptStaging__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/ReceiptStaging */ "./resources/js/components/ReceiptStaging.js");
 /* harmony import */ var _components_SalonCalendar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/SalonCalendar */ "./resources/js/components/SalonCalendar.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -22316,8 +22317,8 @@ var Register = function Register(_ref) {
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
-      sales = _useState2[0],
-      setSales = _useState2[1];
+      receipts = _useState2[0],
+      setReceipts = _useState2[1];
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -22331,18 +22332,23 @@ var Register = function Register(_ref) {
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      addSaleDialog = _useState8[0],
-      setAddSaleDialog = _useState8[1];
+      addReceiptDialog = _useState8[0],
+      setAddReceiptDialog = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState10 = _slicedToArray(_useState9, 2),
-      editSaleDialog = _useState10[0],
-      setEditSaleDialog = _useState10[1];
+      editReceiptDialog = _useState10[0],
+      setEditReceiptDialog = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(new Date()),
       _useState12 = _slicedToArray(_useState11, 2),
       date = _useState12[0],
       setDate = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      receiptItems = _useState14[0],
+      setReceiptItems = _useState14[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     var getTechnicians = /*#__PURE__*/function () {
@@ -22374,63 +22380,93 @@ var Register = function Register(_ref) {
 
     getTechnicians();
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    var getReceiptItems = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var receiptItems;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _http__WEBPACK_IMPORTED_MODULE_2__.authClient.get("items/?name=technician_sale,technician_tip");
 
-  var handleAddSale = function handleAddSale(sale) {
+              case 2:
+                receiptItems = _context2.sent;
+                setReceiptItems(receiptItems.data.data);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function getReceiptItems() {
+        return _ref3.apply(this, arguments);
+      };
+    }();
+
+    getReceiptItems();
+  }, []);
+
+  var handleAddReceipt = function handleAddReceipt(receipt) {
     var technician = technicians.find(function (technician) {
-      return technician.id === sale.technician_id;
+      return technician.id === receipt.technician_id;
     });
-    technician.sale_amount = sale.sale_amount;
+    technician.receipt_sale_amount = receipt.receipt_sale_amount;
 
-    if (sale.tip_amount) {
-      technician.tip_amount = sale.tip_amount;
+    if (receipt.receipt_tip_amount) {
+      technician.receipt_tip_amount = receipt.receipt_tip_amount;
     }
 
-    var newSales = [].concat(_toConsumableArray(sales), [sale]);
-    setSales(newSales);
+    var newReceipts = [].concat(_toConsumableArray(receipts), [receipt]);
+    setReceipts(newReceipts);
     setTechnician(null);
-    setAddSaleDialog(false);
+    setAddReceiptDialog(false);
   };
 
-  var handleEditSale = function handleEditSale(editedSale) {
+  var handleEditReceipt = function handleEditReceipt(editedReceipt) {
     var technician = technicians.find(function (technician) {
-      return technician.id === editedSale.technician_id;
+      return technician.id === editedReceipt.technician_id;
     });
-    technician.sale_amount = editedSale.sale_amount;
+    technician.receipt_sale_amount = editedReceipt.receipt_sale_amount;
 
-    if (editedSale.tip_amount) {
-      technician.tip_amount = editedSale.tip_amount;
+    if (editedReceipt.receipt_tip_amount) {
+      technician.receipt_tip_amount = editedSale.receipt_tip_amount;
     }
 
-    var editedSales = sales.map(function (sale) {
-      return sale.technician_id === editedSale.technician_id ? editedSale : sale;
+    var editedReceipts = receipts.map(function (receipt) {
+      return receipt.technician_id === editedReceipt.technician_id ? editedReceipt : sale;
     });
-    setSales(editedSales);
+    setReceipt(editedReceipts);
     setTechnician(null);
-    setEditSaleDialog(false);
+    setEditReceiptDialog(false);
   };
 
-  var handleDeleteSale = function handleDeleteSale(technicianId) {
+  var handleDeleteReceipt = function handleDeleteReceipt(technicianId) {
     var technician = technicians.find(function (technician) {
       return technician.id === technicianId;
     });
-    delete technician.sale_amount;
+    delete technician.receipt_sale_amount;
 
-    if (technician.hasOwnProperty("tip_amount")) {
-      delete technician.tip_amount;
+    if (technician.hasOwnProperty("receipt_tip_amount")) {
+      delete technician.receipt_tip_amount;
     }
 
-    var deletedSales = sales.filter(function (sale) {
-      return sale.technician_id !== technicianId;
+    var deletedReceipts = sales.filter(function (receipt) {
+      return receipt.technician_id !== technicianId;
     });
-    setSales(deletedSales);
+    setReceipts(deletedReceipts);
     setTechnician(null);
-    setEditSaleDialog(false);
+    setEditReceiptDialog(false);
   };
 
-  var handleSaleSubmit = function handleSaleSubmit() {
+  var handleReceiptSubmit = function handleReceiptSubmit() {
     var data = {
       date: date,
-      sales: sales
+      receipts: receipts
     };
     console.log(data);
   };
@@ -22439,8 +22475,8 @@ var Register = function Register(_ref) {
     setDate(date);
   };
 
-  var AddSaleCard = function AddSaleCard(_ref3) {
-    var technician = _ref3.technician;
+  var AddReceiptCard = function AddReceiptCard(_ref4) {
+    var technician = _ref4.technician;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__.default, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
@@ -22452,17 +22488,17 @@ var Register = function Register(_ref) {
             color: "primary",
             onClick: function onClick() {
               setTechnician(technician);
-              setAddSaleDialog(true);
+              setAddReceiptDialog(true);
             },
-            children: "Add Sale"
+            children: "Add Receipt"
           })
         })]
       })
     });
   };
 
-  var EditSaleCard = function EditSaleCard(_ref4) {
-    var technician = _ref4.technician;
+  var EditReceiptCard = function EditReceiptCard(_ref5) {
+    var technician = _ref5.technician;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__.default, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__.default, {
@@ -22470,18 +22506,18 @@ var Register = function Register(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__.default, {
-          children: ["Sale: $", technician.sale_amount]
+          children: ["Sale: $", technician.receipt_sale_amount]
         })
-      }), technician.tip_amount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
+      }), technician.receipt_tip_amount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__.default, {
-          children: ["Tip: $", technician.tip_amount]
+          children: ["Tip: $", technician.receipt_tip_amount]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__.default, {
           color: "primary",
           onClick: function onClick() {
             setTechnician(technician);
-            setEditSaleDialog(true);
+            setEditReceiptDialog(true);
           },
           children: "Edit Sale"
         })
@@ -22526,9 +22562,9 @@ var Register = function Register(_ref) {
                       item: true,
                       xs: 2,
                       sm: 3,
-                      children: technician.hasOwnProperty("sale_amount") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(EditSaleCard, {
+                      children: technician.hasOwnProperty("receipt_sale_amount") ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(EditReceiptCard, {
                         technician: technician
-                      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(AddSaleCard, {
+                      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(AddReceiptCard, {
                         technician: technician
                       })
                     }, technician.id);
@@ -22537,30 +22573,31 @@ var Register = function Register(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
                 item: true,
                 xs: 12,
-                children: sales.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_SaleStaging__WEBPACK_IMPORTED_MODULE_6__.default, {
+                children: receipts.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ReceiptStaging__WEBPACK_IMPORTED_MODULE_6__.default, {
                   technicians: technicians,
-                  handleSubmit: handleSaleSubmit
+                  handleSubmit: handleReceiptSubmit
                 })
               })]
             })
           })]
         })]
       })]
-    }), technician && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_AddSale__WEBPACK_IMPORTED_MODULE_4__.default, {
-      open: addSaleDialog,
+    }), technician && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_AddReceipt__WEBPACK_IMPORTED_MODULE_4__.default, {
+      open: addReceiptDialog,
+      technician: technician,
+      receiptItem: receiptItems,
+      handleClose: function handleClose() {
+        setAddReceiptDialog(false), setTechnician(null);
+      },
+      handleSubmit: handleAddReceipt
+    }), technician && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_EditReceiptDialog__WEBPACK_IMPORTED_MODULE_5__.default, {
+      open: editReceiptDialog,
       technician: technician,
       handleClose: function handleClose() {
-        setAddSaleDialog(false), setTechnician(null);
+        setEditReceiptDialog(false), setTechnician(null);
       },
-      handleSubmit: handleAddSale
-    }), technician && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_EditSaleDialog__WEBPACK_IMPORTED_MODULE_5__.default, {
-      open: editSaleDialog,
-      technician: technician,
-      handleClose: function handleClose() {
-        setEditSaleDialog(false), setTechnician(null);
-      },
-      handleSubmit: handleEditSale,
-      handleDelete: handleDeleteSale
+      handleSubmit: handleEditReceipt,
+      handleDelete: handleDeleteReceipt
     })]
   });
 };

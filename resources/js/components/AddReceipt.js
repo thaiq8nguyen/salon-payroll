@@ -14,7 +14,13 @@ import {
 import { makeStyles } from "@material-ui/core";
 import { Formik } from "formik";
 
-const AddSale = ({ technician, open, handleClose, handleSubmit }) => {
+const AddReceipt = ({
+    technician,
+    open,
+    receiptItems,
+    handleClose,
+    handleSubmit,
+}) => {
     return (
         <>
             <Dialog open={open} onClose={handleClose}>
@@ -23,12 +29,15 @@ const AddSale = ({ technician, open, handleClose, handleSubmit }) => {
                     <Formik
                         initialValues={{
                             technician_id: technician.id,
-                            sale_amount: "",
-                            tip_amount: "",
+                            receipt_sale_amount: "",
+                            receipt_tip_amount: "",
                         }}
                         onSubmit={handleSubmit}
                         children={(props) => (
-                            <AddSaleForm {...props} handleClose={handleClose} />
+                            <AddReceiptForm
+                                {...props}
+                                handleClose={handleClose}
+                            />
                         )}
                     />
                 </DialogContent>
@@ -37,7 +46,7 @@ const AddSale = ({ technician, open, handleClose, handleSubmit }) => {
     );
 };
 
-const AddSaleForm = ({
+const AddReceiptForm = ({
     values,
     handleBlur,
     handleChange,
@@ -50,23 +59,23 @@ const AddSaleForm = ({
                 <Grid item xs={6}>
                     <TextField
                         id="sale_amount"
-                        label="Sale amount"
-                        name="sale_amount"
+                        label="Receipt sale amount"
+                        name="receipt_sale_amount"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         type="number"
-                        value={values.sale_amount}
+                        value={values.receipt_sale_amount}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
                         id="tip_amount"
-                        label="Tip amount"
-                        name="tip_amount"
+                        label="Receipt tip amount"
+                        name="receipt_tip_amount"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         type="number"
-                        value={values.tip_amount}
+                        value={values.receipt_tip_amount}
                     />
                 </Grid>
             </Grid>
@@ -79,4 +88,4 @@ const AddSaleForm = ({
         </>
     );
 };
-export default AddSale;
+export default AddReceipt;

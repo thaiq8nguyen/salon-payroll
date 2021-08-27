@@ -15,7 +15,7 @@ import {
 import { makeStyles } from "@material-ui/core";
 import { Formik } from "formik";
 
-const EditSaleDialog = ({
+const EditReceiptDialog = ({
     technician,
     open,
     handleClose,
@@ -114,4 +114,4 @@ const EditSaleForm = ({
         </>
     );
 };
-export default EditSaleDialog;
+export default EditReceiptDialog;
