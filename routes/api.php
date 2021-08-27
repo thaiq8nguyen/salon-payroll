@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 
     Route::resource('sales', SaleController::class);
+    Route::resource('items', ItemController::class);
     Route::post('/all-sales', [SaleController::class, 'storeAll']);
 });
