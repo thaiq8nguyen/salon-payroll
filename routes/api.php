@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TechnicianController;
-use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ItemController;
 
 /*
@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/technicians', [TechnicianController::class, 'read']);
     Route::get('/user', [AuthController::class, 'user']);
 
-    Route::resource('sales', SaleController::class);
+    Route::resource('receipts', ReceiptController::class);
     Route::resource('items', ItemController::class);
-    Route::post('/all-sales', [SaleController::class, 'storeAll']);
+    Route::post('/all-receipts', [ReceiptController::class, 'storeAll']);
 });

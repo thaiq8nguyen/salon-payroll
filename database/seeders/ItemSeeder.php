@@ -14,6 +14,6 @@ class ItemSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('items')->insert([['name' => 'technician_sale', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],['name' => 'technician_tip', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]]);
+        DB::table('items')->insert([['name' => 'sale_receipt', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],['name' => 'tip_receipt', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]]);
     }
 }

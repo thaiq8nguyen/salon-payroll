@@ -22328,11 +22328,11 @@ var Register = function Register(_ref) {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     date: new Date(),
-    technicianReceipts: []
+    data: []
   }),
       _useState4 = _slicedToArray(_useState3, 2),
-      receipts = _useState4[0],
-      setReceipts = _useState4[1];
+      allReceipts = _useState4[0],
+      setAllReceipts = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
@@ -22420,7 +22420,7 @@ var Register = function Register(_ref) {
     getReceiptItems();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    setReceipts(_objectSpread(_objectSpread({}, receipts), {}, {
+    setAllReceipts(_objectSpread(_objectSpread({}, allReceipts), {}, {
       date: date
     }));
   }, [date]);
@@ -22431,11 +22431,11 @@ var Register = function Register(_ref) {
     });
     technician.receipts = newReceipt.receipts;
 
-    var newReceipts = _objectSpread(_objectSpread({}, receipts), {}, {
-      technicianReceipts: [].concat(_toConsumableArray(receipts.technicianReceipts), [newReceipt])
+    var newReceipts = _objectSpread(_objectSpread({}, allReceipts), {}, {
+      data: [].concat(_toConsumableArray(allReceipts.data), [newReceipt])
     });
 
-    setReceipts(newReceipts);
+    setAllReceipts(newReceipts);
     setTechnician(null);
     setAddReceiptDialog(false);
   };
@@ -22446,13 +22446,13 @@ var Register = function Register(_ref) {
     });
     technician.receipts = editedReceipt.receipts;
 
-    var editedReceipts = _objectSpread(_objectSpread({}, receipts), {}, {
-      technicianReceipts: receipts.technicianReceipts.map(function (technicianReceipt) {
+    var editedReceipts = _objectSpread(_objectSpread({}, allReceipts), {}, {
+      data: receipts.technicianReceipts.map(function (technicianReceipt) {
         return technicianReceipt.technician_id === editedReceipt.technician_id ? editedReceipt : technicianReceipt;
       })
     });
 
-    setReceipts(editedReceipts);
+    setAllReceipts(editedReceipts);
     setTechnician(null);
     setEditReceiptDialog(false);
   };
@@ -22465,30 +22465,50 @@ var Register = function Register(_ref) {
     var deletedReceipts = receipts.technicianReceipts.filter(function (technicianReceipt) {
       return technicianReceipt.technician_id !== technicianId;
     });
-    console.log(deletedReceipts);
-    setReceipts({
+    setAllReceipts({
       date: date,
-      technicianReceipts: deletedReceipts
+      data: deletedReceipts
     });
     setTechnician(null);
     setEditReceiptDialog(false);
   };
 
-  var handleReceiptSubmit = function handleReceiptSubmit() {
-    var data = {
-      date: date,
-      receipts: receipts
+  var handleReceiptSubmit = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var postReceipts;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              //const data = { date, technicians: receipts };
+              //console.log(data);
+              console.log("data ", allReceipts);
+              _context3.next = 3;
+              return _http__WEBPACK_IMPORTED_MODULE_2__.authClient.post("all-receipts", allReceipts);
+
+            case 3:
+              postReceipts = _context3.sent;
+              console.log("response ", postReceipts.data.data);
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function handleReceiptSubmit() {
+      return _ref4.apply(this, arguments);
     };
-    console.log(data);
-  };
+  }();
 
   var handleDate = function handleDate(receiptDate) {
-    console.log("Date ", receiptDate);
     setDate(receiptDate);
   };
 
-  var AddReceiptCard = function AddReceiptCard(_ref4) {
-    var technician = _ref4.technician;
+  var AddReceiptCard = function AddReceiptCard(_ref5) {
+    var technician = _ref5.technician;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__.default, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
@@ -22509,8 +22529,8 @@ var Register = function Register(_ref) {
     });
   };
 
-  var EditReceiptCard = function EditReceiptCard(_ref5) {
-    var technician = _ref5.technician;
+  var EditReceiptCard = function EditReceiptCard(_ref6) {
+    var technician = _ref6.technician;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__.default, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__.default, {
@@ -22583,7 +22603,7 @@ var Register = function Register(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__.default, {
                 item: true,
                 xs: 12,
-                children: receipts.technicianReceipts.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ReceiptStaging__WEBPACK_IMPORTED_MODULE_6__.default, {
+                children: allReceipts.data.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ReceiptStaging__WEBPACK_IMPORTED_MODULE_6__.default, {
                   technicians: technicians,
                   handleSubmit: handleReceiptSubmit
                 })

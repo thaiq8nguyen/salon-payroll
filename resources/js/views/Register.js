@@ -44,9 +44,9 @@ const Register = ({ history }) => {
 
     const [date, setDate] = useState(null);
 
-    const [receipts, setReceipts] = useState({
+    const [allReceipts, setAllReceipts] = useState({
         date: new Date(),
-        technicianReceipts: [],
+        data: [],
     });
 
     const [technicians, setTechnicians] = useState([]);
@@ -80,7 +80,7 @@ const Register = ({ history }) => {
     }, []);
 
     useEffect(() => {
-        setReceipts({ ...receipts, date });
+        setAllReceipts({ ...allReceipts, date });
     }, [date]);
 
     const handleAddReceipt = (newReceipt) => {
@@ -90,10 +90,10 @@ const Register = ({ history }) => {
         technician.receipts = newReceipt.receipts;
 
         const newReceipts = {
-            ...receipts,
-            technicianReceipts: [...receipts.technicianReceipts, newReceipt],
+            ...allReceipts,
+            data: [...allReceipts.data, newReceipt],
         };
-        setReceipts(newReceipts);
+        setAllReceipts(newReceipts);
         setTechnician(null);
         setAddReceiptDialog(false);
     };
@@ -105,17 +105,15 @@ const Register = ({ history }) => {
         technician.receipts = editedReceipt.receipts;
 
         const editedReceipts = {
-            ...receipts,
-            technicianReceipts: receipts.technicianReceipts.map(
-                (technicianReceipt) =>
-                    technicianReceipt.technician_id ===
-                    editedReceipt.technician_id
-                        ? editedReceipt
-                        : technicianReceipt
+            ...allReceipts,
+            data: receipts.technicianReceipts.map((technicianReceipt) =>
+                technicianReceipt.technician_id === editedReceipt.technician_id
+                    ? editedReceipt
+                    : technicianReceipt
             ),
         };
 
-        setReceipts(editedReceipts);
+        setAllReceipts(editedReceipts);
         setTechnician(null);
         setEditReceiptDialog(false);
     };
@@ -131,19 +129,21 @@ const Register = ({ history }) => {
             (technicianReceipt) =>
                 technicianReceipt.technician_id !== technicianId
         );
-        console.log(deletedReceipts);
-        setReceipts({ date, technicianReceipts: deletedReceipts });
+
+        setAllReceipts({ date, data: deletedReceipts });
         setTechnician(null);
         setEditReceiptDialog(false);
     };
 
-    const handleReceiptSubmit = () => {
-        const data = { date, receipts };
-        console.log(data);
+    const handleReceiptSubmit = async () => {
+        //const data = { date, technicians: receipts };
+        //console.log(data);
+        console.log("data ", allReceipts);
+        const postReceipts = await authClient.post("all-receipts", allReceipts);
+        console.log("response ", postReceipts.data.data);
     };
 
     const handleDate = (receiptDate) => {
-        console.log("Date ", receiptDate);
         setDate(receiptDate);
     };
 
@@ -245,7 +245,7 @@ const Register = ({ history }) => {
                                     )}
                                 </Grid>
                                 <Grid item xs={12}>
-                                    {receipts.technicianReceipts.length > 0 && (
+                                    {allReceipts.data.length > 0 && (
                                         <ReceiptStaging
                                             technicians={technicians}
                                             handleSubmit={handleReceiptSubmit}
