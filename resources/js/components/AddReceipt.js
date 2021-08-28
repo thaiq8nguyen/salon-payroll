@@ -1,18 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Button,
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
-    FormControlLabel,
     Grid,
-    Switch,
     TextField,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { Formik } from "formik";
+import { Formik, Field, FieldArray } from "formik";
 
 const AddReceipt = ({
     technician,
@@ -24,13 +21,27 @@ const AddReceipt = ({
     return (
         <>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add {technician.first_name}'s sale</DialogTitle>
+                <DialogTitle>Add {technician.first_name}'s receipt</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={{
                             technician_id: technician.id,
-                            receipt_sale_amount: "",
-                            receipt_tip_amount: "",
+                            receipts: [
+                                {
+                                    item_id: receiptItems.find(
+                                        (item) => item.name === "sale_receipt"
+                                    ).id,
+                                    name: "sale_receipt",
+                                    amount: "",
+                                },
+                                {
+                                    item_id: receiptItems.find(
+                                        (item) => item.name === "tip_receipt"
+                                    ).id,
+                                    name: "tip_receipt",
+                                    amount: "",
+                                },
+                            ],
                         }}
                         onSubmit={handleSubmit}
                         children={(props) => (
@@ -49,35 +60,31 @@ const AddReceipt = ({
 const AddReceiptForm = ({
     values,
     handleBlur,
-    handleChange,
     handleClose,
     handleSubmit,
+    setFieldValue,
 }) => {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    <TextField
-                        id="sale_amount"
-                        label="Receipt sale amount"
-                        name="receipt_sale_amount"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        type="number"
-                        value={values.receipt_sale_amount}
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    <TextField
-                        id="tip_amount"
-                        label="Receipt tip amount"
-                        name="receipt_tip_amount"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        type="number"
-                        value={values.receipt_tip_amount}
-                    />
-                </Grid>
+                {values.receipts.map((receipt, index) => (
+                    <Grid item xs={6} key={index}>
+                        <TextField
+                            id={receipt.name}
+                            label={receipt.name.split("_").join(" ")}
+                            name={receipt.name}
+                            type="text"
+                            value={receipt.amount}
+                            onChange={(e) => {
+                                setFieldValue(
+                                    `receipts.${index}.amount`,
+                                    e.target.value
+                                );
+                            }}
+                            onBlur={handleBlur}
+                        />
+                    </Grid>
+                ))}
             </Grid>
             <DialogActions>
                 <Button onClick={handleClose}>Close</Button>

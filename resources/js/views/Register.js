@@ -42,7 +42,12 @@ const useRegisterStyles = makeStyles((theme) => ({
 const Register = ({ history }) => {
     const classes = useRegisterStyles();
 
-    const [receipts, setReceipts] = useState([]);
+    const [date, setDate] = useState(null);
+
+    const [receipts, setReceipts] = useState({
+        date: new Date(),
+        technicianReceipts: [],
+    });
 
     const [technicians, setTechnicians] = useState([]);
 
@@ -51,8 +56,6 @@ const Register = ({ history }) => {
     const [addReceiptDialog, setAddReceiptDialog] = useState(false);
 
     const [editReceiptDialog, setEditReceiptDialog] = useState(false);
-
-    const [date, setDate] = useState(new Date());
 
     const [receiptItems, setReceiptItems] = useState([]);
 
@@ -68,7 +71,7 @@ const Register = ({ history }) => {
     useEffect(() => {
         const getReceiptItems = async () => {
             const receiptItems = await authClient.get(
-                "items/?name=technician_sale,technician_tip"
+                "items/?name=sale_receipt,tip_receipt"
             );
             setReceiptItems(receiptItems.data.data);
         };
@@ -76,15 +79,20 @@ const Register = ({ history }) => {
         getReceiptItems();
     }, []);
 
-    const handleAddReceipt = (receipt) => {
+    useEffect(() => {
+        setReceipts({ ...receipts, date });
+    }, [date]);
+
+    const handleAddReceipt = (newReceipt) => {
         const technician = technicians.find(
-            (technician) => technician.id === receipt.technician_id
+            (technician) => technician.id === newReceipt.technician_id
         );
-        technician.receipt_sale_amount = receipt.receipt_sale_amount;
-        if (receipt.receipt_tip_amount) {
-            technician.receipt_tip_amount = receipt.receipt_tip_amount;
-        }
-        const newReceipts = [...receipts, receipt];
+        technician.receipts = newReceipt.receipts;
+
+        const newReceipts = {
+            ...receipts,
+            technicianReceipts: [...receipts.technicianReceipts, newReceipt],
+        };
         setReceipts(newReceipts);
         setTechnician(null);
         setAddReceiptDialog(false);
@@ -94,17 +102,20 @@ const Register = ({ history }) => {
         const technician = technicians.find(
             (technician) => technician.id === editedReceipt.technician_id
         );
-        technician.receipt_sale_amount = editedReceipt.receipt_sale_amount;
-        if (editedReceipt.receipt_tip_amount) {
-            technician.receipt_tip_amount = editedSale.receipt_tip_amount;
-        }
+        technician.receipts = editedReceipt.receipts;
 
-        const editedReceipts = receipts.map((receipt) =>
-            receipt.technician_id === editedReceipt.technician_id
-                ? editedReceipt
-                : sale
-        );
-        setReceipt(editedReceipts);
+        const editedReceipts = {
+            ...receipts,
+            technicianReceipts: receipts.technicianReceipts.map(
+                (technicianReceipt) =>
+                    technicianReceipt.technician_id ===
+                    editedReceipt.technician_id
+                        ? editedReceipt
+                        : technicianReceipt
+            ),
+        };
+
+        setReceipts(editedReceipts);
         setTechnician(null);
         setEditReceiptDialog(false);
     };
@@ -114,15 +125,14 @@ const Register = ({ history }) => {
             (technician) => technician.id === technicianId
         );
 
-        delete technician.receipt_sale_amount;
-        if (technician.hasOwnProperty("receipt_tip_amount")) {
-            delete technician.receipt_tip_amount;
-        }
+        delete technician.receipts;
 
-        const deletedReceipts = sales.filter(
-            (receipt) => receipt.technician_id !== technicianId
+        const deletedReceipts = receipts.technicianReceipts.filter(
+            (technicianReceipt) =>
+                technicianReceipt.technician_id !== technicianId
         );
-        setReceipts(deletedReceipts);
+        console.log(deletedReceipts);
+        setReceipts({ date, technicianReceipts: deletedReceipts });
         setTechnician(null);
         setEditReceiptDialog(false);
     };
@@ -132,8 +142,9 @@ const Register = ({ history }) => {
         console.log(data);
     };
 
-    const handleDate = (date) => {
-        setDate(date);
+    const handleDate = (receiptDate) => {
+        console.log("Date ", receiptDate);
+        setDate(receiptDate);
     };
 
     const AddReceiptCard = ({ technician }) => {
@@ -166,19 +177,13 @@ const Register = ({ history }) => {
                     <Typography>{technician.first_name}</Typography>
                 </CardContent>
 
-                <CardContent>
-                    <Typography>
-                        Sale: ${technician.receipt_sale_amount}
-                    </Typography>
-                </CardContent>
-
-                {technician.receipt_tip_amount && (
-                    <CardContent>
+                {technician.receipts.map((receipt) => (
+                    <CardContent key={receipt.item_id}>
                         <Typography>
-                            Tip: ${technician.receipt_tip_amount}
+                            {receipt.name}: ${receipt.amount}
                         </Typography>
                     </CardContent>
-                )}
+                ))}
 
                 <CardActions>
                     <Button
@@ -220,7 +225,7 @@ const Register = ({ history }) => {
                                                     key={technician.id}
                                                 >
                                                     {technician.hasOwnProperty(
-                                                        "receipt_sale_amount"
+                                                        "receipts"
                                                     ) ? (
                                                         <EditReceiptCard
                                                             technician={
@@ -240,7 +245,7 @@ const Register = ({ history }) => {
                                     )}
                                 </Grid>
                                 <Grid item xs={12}>
-                                    {receipts.length > 0 && (
+                                    {receipts.technicianReceipts.length > 0 && (
                                         <ReceiptStaging
                                             technicians={technicians}
                                             handleSubmit={handleReceiptSubmit}
@@ -256,7 +261,7 @@ const Register = ({ history }) => {
                 <AddSale
                     open={addReceiptDialog}
                     technician={technician}
-                    receiptItem={receiptItems}
+                    receiptItems={receiptItems}
                     handleClose={() => {
                         setAddReceiptDialog(false), setTechnician(null);
                     }}
@@ -267,6 +272,7 @@ const Register = ({ history }) => {
                 <EditReceiptDialog
                     open={editReceiptDialog}
                     technician={technician}
+                    receiptItems={receiptItems}
                     handleClose={() => {
                         setEditReceiptDialog(false), setTechnician(null);
                     }}

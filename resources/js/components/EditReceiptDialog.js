@@ -4,11 +4,8 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
-    FormControlLabel,
     Grid,
-    Switch,
     TextField,
     Typography,
 } from "@material-ui/core";
@@ -17,6 +14,7 @@ import { Formik } from "formik";
 
 const EditReceiptDialog = ({
     technician,
+    receiptItems,
     open,
     handleClose,
     handleSubmit,
@@ -30,8 +28,22 @@ const EditReceiptDialog = ({
                     <Formik
                         initialValues={{
                             technician_id: technician.id,
-                            sale_amount: "",
-                            tip_amount: "",
+                            receipts: [
+                                {
+                                    item_id: receiptItems.find(
+                                        (item) => item.name === "sale_receipt"
+                                    ).id,
+                                    name: "sale_receipt",
+                                    amount: "",
+                                },
+                                {
+                                    item_id: receiptItems.find(
+                                        (item) => item.name === "tip_receipt"
+                                    ).id,
+                                    name: "tip_receipt",
+                                    amount: "",
+                                },
+                            ],
                         }}
                         onSubmit={handleSubmit}
                         children={(props) => (
@@ -51,13 +63,12 @@ const EditReceiptDialog = ({
 
 const EditSaleForm = ({
     values,
-    sale_amount,
-    tip_amount,
+    receipts,
     handleBlur,
-    handleChange,
     handleClose,
     handleSubmit,
     handleDelete,
+    setFieldValue,
 }) => {
     return (
         <>
@@ -66,36 +77,35 @@ const EditSaleForm = ({
                     <Typography color="textSecondary" gutterBottom>
                         Current
                     </Typography>
-                    <Typography>Sale : ${sale_amount}</Typography>
-                    {tip_amount && <Typography>Tip : ${tip_amount}</Typography>}
+                    {receipts.map((receipt) => (
+                        <Typography key={receipt.item_id}>
+                            {receipt.name}: ${receipt.amount}
+                        </Typography>
+                    ))}
                 </Grid>
                 <Grid item xs={12}>
                     <Typography color="textSecondary" gutterBottom>
                         New
                     </Typography>
                     <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="sale_amount"
-                                label="Sale amount"
-                                name="sale_amount"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                type="number"
-                                value={values.sale_amount}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="tip_amount"
-                                label="Tip amount"
-                                name="tip_amount"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                type="number"
-                                value={values.tip_amount}
-                            />
-                        </Grid>
+                        {values.receipts.map((receipt, index) => (
+                            <Grid item xs={6} key={index}>
+                                <TextField
+                                    id={receipt.name}
+                                    label={receipt.name.split("_").join(" ")}
+                                    name={receipt.name}
+                                    type="text"
+                                    value={receipt.amount}
+                                    onChange={(e) => {
+                                        setFieldValue(
+                                            `receipts.${index}.amount`,
+                                            e.target.value
+                                        );
+                                    }}
+                                    onBlur={handleBlur}
+                                />
+                            </Grid>
+                        ))}
                     </Grid>
                 </Grid>
             </Grid>

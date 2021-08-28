@@ -29,38 +29,26 @@ const ReceiptStaging = ({ technicians, handleSubmit }) => {
                     <List>
                         {technicians
                             .filter((technician) =>
-                                technician.hasOwnProperty("receipt_sale_amount")
+                                technician.hasOwnProperty("receipts")
                             )
                             .map((technician) => (
-                                <ListItem key={technician.id}>
-                                    <ListItemText
-                                        primary={technician.first_name}
-                                        secondary={
-                                            <>
-                                                <Typography component="span">
-                                                    Sale Receipt: $
-                                                    {
-                                                        technician.receipt_sale_amount
-                                                    }
-                                                </Typography>
-                                                &nbsp;
-                                                {technician.receipt_tip_amount && (
-                                                    <Typography
-                                                        component="span"
-                                                        style={{
-                                                            marginLeft: 20,
-                                                        }}
-                                                    >
-                                                        Tip Receipt: $
-                                                        {
-                                                            technician.receipt_tip_amount
-                                                        }
-                                                    </Typography>
-                                                )}
-                                            </>
-                                        }
-                                    />
-                                </ListItem>
+                                <div key={technician.id}>
+                                    <ListItem>
+                                        <ListItemText
+                                            primary={technician.first_name}
+                                        />
+                                    </ListItem>
+
+                                    {technician.receipts.map((receipt) => (
+                                        <Typography key={receipt.item_id}>
+                                            {`${receipt.name
+                                                .split("_")
+                                                .join(" ")}: $${
+                                                receipt.amount
+                                            }`}
+                                        </Typography>
+                                    ))}
+                                </div>
                             ))}
                     </List>
                 </CardContent>
