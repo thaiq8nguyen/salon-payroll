@@ -11,4 +11,9 @@ class Item extends Model
 
     protected $fillable = ['name'];
     protected $hidden =['created_at', 'updated_at'];
+
+    public function receipts()
+    {
+        return $this->belongsToMany(Receipt::class);
+    }
 }

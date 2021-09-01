@@ -16,6 +16,7 @@ import AddSale from "../components/AddReceipt";
 import EditReceiptDialog from "../components/EditReceiptDialog";
 import ReceiptStaging from "../components/ReceiptStaging";
 import SalonCalendar from "../components/SalonCalendar";
+import TechnicianReceipt from "../components/TechnicianReceipt";
 
 const useRegisterStyles = makeStyles((theme) => ({
     root: {
@@ -62,7 +63,7 @@ const Register = ({ history }) => {
     useEffect(() => {
         const getTechnicians = async () => {
             const technicians = await authClient.get("technicians");
-            setTechnicians(technicians.data);
+            setTechnicians(technicians.data.data);
         };
 
         getTechnicians();
@@ -136,68 +137,12 @@ const Register = ({ history }) => {
     };
 
     const handleReceiptSubmit = async () => {
-        //const data = { date, technicians: receipts };
-        //console.log(data);
-        console.log("data ", allReceipts);
         const postReceipts = await authClient.post("all-receipts", allReceipts);
         console.log("response ", postReceipts.data.data);
     };
 
     const handleDate = (receiptDate) => {
         setDate(receiptDate);
-    };
-
-    const AddReceiptCard = ({ technician }) => {
-        return (
-            <>
-                <Card>
-                    <CardContent>
-                        <Typography>{technician.first_name}</Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button
-                            color="primary"
-                            onClick={() => {
-                                setTechnician(technician);
-                                setAddReceiptDialog(true);
-                            }}
-                        >
-                            Add Receipt
-                        </Button>
-                    </CardActions>
-                </Card>
-            </>
-        );
-    };
-
-    const EditReceiptCard = ({ technician }) => {
-        return (
-            <Card>
-                <CardContent>
-                    <Typography>{technician.first_name}</Typography>
-                </CardContent>
-
-                {technician.receipts.map((receipt) => (
-                    <CardContent key={receipt.item_id}>
-                        <Typography>
-                            {receipt.name}: ${receipt.amount}
-                        </Typography>
-                    </CardContent>
-                ))}
-
-                <CardActions>
-                    <Button
-                        color="primary"
-                        onClick={() => {
-                            setTechnician(technician);
-                            setEditReceiptDialog(true);
-                        }}
-                    >
-                        Edit Sale
-                    </Button>
-                </CardActions>
-            </Card>
-        );
     };
 
     return (
@@ -214,9 +159,10 @@ const Register = ({ history }) => {
                         </Grid>
                         <Grid item xs={6} className={classes.verticalContainer}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12}>
+                                <TechnicianReceipt date={date} />
+                                {/* <Grid item xs={12}>
                                     {technicians.length > 0 && (
-                                        <Grid container spacing={2}>
+                                        <Grid container spacing=4{2}>
                                             {technicians.map((technician) => (
                                                 <Grid
                                                     item
@@ -243,7 +189,7 @@ const Register = ({ history }) => {
                                             ))}
                                         </Grid>
                                     )}
-                                </Grid>
+                                </Grid> */}
                                 <Grid item xs={12}>
                                     {allReceipts.data.length > 0 && (
                                         <ReceiptStaging

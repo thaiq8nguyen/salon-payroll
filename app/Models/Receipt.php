@@ -12,8 +12,8 @@ class Receipt extends Model
     protected $fillable = ['technician_id', 'date'];
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function receiptItem()
+    public function items()
     {
-        return $this->hasMany(ItemReceipt::class);
+        return $this->belongsToMany(Item::class)->as('item_detail')->withPivot('amount')->withTimestamps();
     }
 }

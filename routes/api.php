@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/technicians', [TechnicianController::class, 'read']);
     Route::get('/user', [AuthController::class, 'user']);
 
-    Route::resource('receipts', ReceiptController::class);
+    //Route::resource('receipts', ReceiptController::class);
+    Route::post('/receipts', [ReceiptController::class, 'store']);
+    Route::get('/receipts/{id?}', [ReceiptController::class, 'show']);
+    Route::put('/receipts', [ReceiptController::class, 'edit']);
+    Route::delete('/receipts', [ReceiptController::class, 'destroy']);
+    
     Route::resource('items', ItemController::class);
-    Route::post('/all-receipts', [ReceiptController::class, 'storeAll']);
 });
+
+Route::get('/trait-test', [ApiController::class, 'traitTest']);

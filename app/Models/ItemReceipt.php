@@ -11,4 +11,9 @@ class ItemReceipt extends Model
 
     protected $fillable = ['receipt_id','item_id','amount'];
     protected $table = 'item_receipt';
+
+    public function items()
+    {
+        return $this->belongTo(Item::class);
+    }
 }
