@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./views/Login";
 import Technicians from "./views/Technicians";
 import Register from "./views/Register";
+import NewReceipt from "./views/NewReceipt";
+import ExistingReceipt from "./views/ExistingReceipt";
 
 const AppRouter = () => (
     <div className="app-router">
@@ -10,7 +12,9 @@ const AppRouter = () => (
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/technicians" component={Technicians} />
-                <Route path="/register" component={Register} />
+                <Route exact path="/register" component={Register} />
+                <Route path="/register/new-receipts" component={NewReceipt} />
+                <Route path="/register/existing-receipts" component={ExistingReceipt} />
             </Switch>
         </Router>
     </div>

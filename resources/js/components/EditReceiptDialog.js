@@ -7,19 +7,34 @@ import {
     DialogTitle,
     Grid,
     TextField,
-    Typography,
+    Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { Formik } from "formik";
+import { authClient } from "../http";
 
 const EditReceiptDialog = ({
-    technician,
-    receiptItems,
     open,
-    handleClose,
-    handleSubmit,
+    receiptItems,
+    technician,
     handleDelete,
+    handleEdit,
+    handleClose
 }) => {
+    const handleSubmit = async (receipt) => {
+        const receipts = [];
+        receipts.push(receipt);
+        const response = await authClient.put("receipts", { receipts });
+        handleEdit(response.data.data[0]);
+    };
+
+    const handleDeleteSubmit = async (receiptId) => {
+        const receipts = [];
+        receipts.push({ receipt_id: receiptId });
+        const response = await authClient.delete("receipts", { data: { receipts } });
+        handleDelete(response.data.data[0]);
+    };
+
     return (
         <>
             <Dialog open={open} onClose={handleClose}>
@@ -27,23 +42,23 @@ const EditReceiptDialog = ({
                 <DialogContent>
                     <Formik
                         initialValues={{
-                            technician_id: technician.id,
-                            receipts: [
+                            receipt_id: technician.receipt_id,
+                            items: [
                                 {
                                     item_id: receiptItems.find(
                                         (item) => item.name === "sale_receipt"
                                     ).id,
                                     name: "sale_receipt",
-                                    amount: "",
+                                    amount: 0
                                 },
                                 {
                                     item_id: receiptItems.find(
                                         (item) => item.name === "tip_receipt"
                                     ).id,
                                     name: "tip_receipt",
-                                    amount: "",
-                                },
-                            ],
+                                    amount: 0
+                                }
+                            ]
                         }}
                         onSubmit={handleSubmit}
                         children={(props) => (
@@ -51,7 +66,7 @@ const EditReceiptDialog = ({
                                 {...props}
                                 {...technician}
                                 handleClose={handleClose}
-                                handleDelete={handleDelete}
+                                handleDelete={handleDeleteSubmit}
                             />
                         )}
                     />
@@ -63,12 +78,12 @@ const EditReceiptDialog = ({
 
 const EditSaleForm = ({
     values,
-    receipts,
+    items,
     handleBlur,
     handleClose,
     handleSubmit,
     handleDelete,
-    setFieldValue,
+    setFieldValue
 }) => {
     return (
         <>
@@ -77,9 +92,9 @@ const EditSaleForm = ({
                     <Typography color="textSecondary" gutterBottom>
                         Current
                     </Typography>
-                    {receipts.map((receipt) => (
-                        <Typography key={receipt.item_id}>
-                            {receipt.name}: ${receipt.amount}
+                    {items.map((item) => (
+                        <Typography key={item.item_id}>
+                            {item.name}: ${item.amount}
                         </Typography>
                     ))}
                 </Grid>
@@ -88,19 +103,16 @@ const EditSaleForm = ({
                         New
                     </Typography>
                     <Grid container spacing={2}>
-                        {values.receipts.map((receipt, index) => (
+                        {values.items.map((item, index) => (
                             <Grid item xs={6} key={index}>
                                 <TextField
-                                    id={receipt.name}
-                                    label={receipt.name.split("_").join(" ")}
-                                    name={receipt.name}
-                                    type="text"
-                                    value={receipt.amount}
+                                    id={item.name}
+                                    label={item.name.split("_").join(" ")}
+                                    name={item.name}
+                                    type="number"
+                                    value={item.amount}
                                     onChange={(e) => {
-                                        setFieldValue(
-                                            `receipts.${index}.amount`,
-                                            e.target.value
-                                        );
+                                        setFieldValue(`items.${index}.amount`, e.target.value);
                                     }}
                                     onBlur={handleBlur}
                                 />
@@ -112,12 +124,13 @@ const EditSaleForm = ({
             <DialogActions>
                 <Button
                     color="secondary"
-                    onClick={() => handleDelete(values.technician_id)}
+                    type="button"
+                    onClick={() => handleDelete(values.receipt_id)}
                 >
                     Delete
                 </Button>
                 <Button onClick={handleClose}>Close</Button>
-                <Button color="primary" onClick={handleSubmit}>
+                <Button color="primary" type="submit" onClick={handleSubmit}>
                     Submit
                 </Button>
             </DialogActions>

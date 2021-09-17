@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Receipt;
+use App\Models\Technician;
 use App\Models\ItemReceipt;
 
 class ReceiptController extends ApiController
@@ -20,7 +21,7 @@ class ReceiptController extends ApiController
     }
 
     
-    public function store(Request $request, $technician_id = null)
+    public function create(Request $request)
     {
         // $validation = Validator::make($request->all(), [
         //     'technician_id' => 'required|exists:technicians,id',
@@ -31,37 +32,30 @@ class ReceiptController extends ApiController
         //     return response()->json(['error' => 'invalid inputs', 'message' => $validation->errors()]);
         // }
 
-        
+        $newReceipt = Receipt::create(['technician_id' => $receipt['technician_id'], 'date' => $receipt['date']]);
+        foreach ($receipt['items'] as $item) {
+            $newItem = $newReceipt->items()->attach($item['item_id'], ['amount' => $item['amount']]);
+        }
 
-        
+        $response =['receipt_id' => $newReceipt->id];
+
+        return response()->json(['success' => true, 'message' => 'receipt has been created', 'receipt' => $response]);
+    }
+
+    public function createMany(Request $request)
+    {
+        $response = [];
         foreach ($request['receipts'] as $receipt) {
             $newReceipt = Receipt::create(['technician_id' => $receipt['technician_id'], 'date' => $receipt['date']]);
             foreach ($receipt['items'] as $item) {
                 $newItem = $newReceipt->items()->attach($item['item_id'], ['amount' => $item['amount']]);
             }
-        }
-        $response = ['receipt_id' => $newReceipt->id];
-
-        return response()->json(['success' => true, 'message'=> 'technician receipt have been added', 'data' => $response ]);
-    }
-
-    public function storeAll(Request $request)
-    {
-        $technicians = [];
-        foreach ($request['data'] as $technician) {
-            $addedReceipt = Receipt::create(['technician_id' => $technician['technician_id'], 'date' => $request['date']]);
-
-            array_push($technicians, ['technician_id' => $technician['technician_id'], 'receipt_id' => $addedReceipt->id]);
-            foreach ($technician['receipts'] as $receipt) {
-                $receiptItem = ItemReceipt::create(['receipt_id' => $addedReceipt->id, 'item_id' => $receipt['item_id'], 'amount' => $receipt['amount']]);
-            }
+            $receiptResponse = ['technician_id' => $receipt['technician_id'],'receipt_id' => $newReceipt->id];
+            array_push($response, $receiptResponse);
         }
         
-        $response = ['date' => $request['date'], 'technicians' => $technicians];
 
-
-
-        return $this->successResponse('receipts have been added', $response, 201);
+        return response()->json(['success' => true, 'message'=> 'technician receipt have been added', 'data' => $response ]);
     }
 
     /**
@@ -70,31 +64,51 @@ class ReceiptController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id = null, Request $request)
+    public function show(Request $request)
     {
-        if ($id) {
-            $receipts = Receipt::with('items')->where('id', $id)->get()->toArray();
-        } else {
-            $date = $request->query('date');
-
-            $receipts = Receipt::with('items')->where('date', $date)->get()->toArray();
-
-            $response = array_map(
-                function ($receipt) {
-                    $result = ['receipt_id' => $receipt['id'], 'technician_id' => $receipt['technician_id'], 'date' => $receipt['date'],
-                'items' =>
-                    $this->formatItems($receipt['items']),
-                    
-                ];
-
-                    return $result;
-                },
-                $receipts
-            );
+        $response = '';
+        if ($request->has('date')) {
+            $date = $request->input('date');
+            if ($request->has('with-receipts')) {
+                if ($request->input('with-receipts') === true) {
+                } else {
+                    $receipts = Technician::whereDoesntHave('receipts', function ($query) use ($date) {
+                        $query->where('date', $date);
+                    })->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get(['id as technician_id','first_name']);
+                    $response = $receipts;
+                }
+            }
         }
 
         
-        return response()->json(['success' => true, 'message' => 'receipts have been retrieved successfully', 'data' => $response], 200);
+
+        //$receipts = Technician::with('items')->where('date', $date)->get()->toArray();
+        //$receipts = Technician::with(['receipts:technician_id'])->where('first_name', 'Peter')->get();
+        // $receipts = Technician::with(['receipts' => function ($query) use ($date) {
+        //     $query->where('date', $date);
+        // }, 'receipts.items'])->get()->toArray();
+
+        // $receipts = Receipt::with(['items'])->where('date', $date)->get()->toArray();
+
+        // $response = array_map(
+        //     function ($receipt) {
+        //         $result = ['receipt_id' => $receipt['id'], 'technician_id' => $receipt['technician_id'], 'date' => $receipt['date'],
+        //     'items' =>
+        //         $this->formatItems($receipt['items']),
+                    
+        //     ];
+
+        //         return $result;
+        //     },
+        //     $receipts
+        // );
+
+        
+        
+
+        
+        // return response()->json(['success' => true, 'message' => 'receipts have been retrieved successfully', 'data' => $response], 200);
+        return $this->sendSuccessResponse('technicians with no receipt have been retrieved successfully', ['name' => 'technicians', 'value' => $response]);
     }
 
     /**
@@ -128,7 +142,7 @@ class ReceiptController extends ApiController
      */
     public function destroy(Request $request)
     {
-        // $request['receipt_id'] = $receiptId;
+        //$request['receipt_id'] = $receiptId;
         // $validation = Validator::make($request, [
         //     'receipt_id' => 'required|exists:receipts,id',
         // ]);
@@ -146,6 +160,7 @@ class ReceiptController extends ApiController
         }
         
         return response()->json(['success' => true, 'message' => 'receipts have been deleted', 'data' => $response]);
+        //return response()->json(['data' => $request->all()]);
     }
 
     private function formatItems($items)

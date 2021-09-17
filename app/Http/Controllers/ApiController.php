@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\ApiResponseTrait;
-use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    use ApiResponseTrait;
-
-    public function traitTest()
+    protected function sendSuccessResponse($message, $data='', $code=200)
     {
-        return $this->sendSuccessResponse();
-        //return response()->json(['hello' => 'world']);
+        $response = [
+            'success' =>  true,
+            'message' => $message,
+            $data['name'] => $data['value']
+        ];
+        return response()->json($response, $code);
     }
 }

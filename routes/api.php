@@ -38,11 +38,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/technicians', [TechnicianController::class, 'read']);
     Route::get('/user', [AuthController::class, 'user']);
 
-    //Route::resource('receipts', ReceiptController::class);
-    Route::post('/receipts', [ReceiptController::class, 'store']);
-    Route::get('/receipts/{id?}', [ReceiptController::class, 'show']);
+    //Single processing
+    Route::post('/receipts', [ReceiptController::class, 'create']);
+    Route::get('/technicians/receipts', [ReceiptController::class, 'show']);
     Route::put('/receipts', [ReceiptController::class, 'edit']);
     Route::delete('/receipts', [ReceiptController::class, 'destroy']);
+
+    //Bulk processing
+    Route::post('/receipts/bulk', [ReceiptController::class, 'createMany']);
     
     Route::resource('items', ItemController::class);
 });

@@ -36,6 +36,8 @@
     },
     "dependencies": {
         "@material-ui/core": "^4.12.3",
+        "@material-ui/icons": "^4.11.2",
+        "clsx": "^1.1.1",
         "dayjs": "^1.10.6",
         "formik": "^2.2.9",
         "react-calendar": "^3.4.0",

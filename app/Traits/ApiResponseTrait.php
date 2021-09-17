@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Traits;
 
 trait ApiResponseTrait
 {
     //$message='', $data, $httpCode=200
-    protected function sendSuccessReponse()
+    public function successReponse()
     {
         //$response = ['success' => true, 'message' => $message, 'data' => $data];
 

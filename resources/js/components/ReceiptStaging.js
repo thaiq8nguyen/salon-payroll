@@ -16,7 +16,7 @@ const useSaleStagingStyles = makeStyles((theme) => ({
         justifyContent: "flex-end",
     },
 }));
-const ReceiptStaging = ({ technicians, handleSubmit }) => {
+const ReceiptStaging = ({ receipts, technicians, handleSubmit }) => {
     const classes = useSaleStagingStyles();
 
     return (
@@ -27,29 +27,29 @@ const ReceiptStaging = ({ technicians, handleSubmit }) => {
                 </CardContent>
                 <CardContent>
                     <List>
-                        {technicians
-                            .filter((technician) =>
-                                technician.hasOwnProperty("receipts")
-                            )
-                            .map((technician) => (
-                                <div key={technician.id}>
-                                    <ListItem>
-                                        <ListItemText
-                                            primary={technician.first_name}
-                                        />
-                                    </ListItem>
+                        {receipts.map((receipt) => (
+                            <div key={receipt.technician_id}>
+                                <ListItem>
+                                    <ListItemText
+                                        primary={
+                                            technicians.find(
+                                                (technician) =>
+                                                    technician.id ===
+                                                    receipt.technician_id
+                                            ).first_name
+                                        }
+                                    />
+                                </ListItem>
 
-                                    {technician.receipts.map((receipt) => (
-                                        <Typography key={receipt.item_id}>
-                                            {`${receipt.name
-                                                .split("_")
-                                                .join(" ")}: $${
-                                                receipt.amount
-                                            }`}
-                                        </Typography>
-                                    ))}
-                                </div>
-                            ))}
+                                {receipt.items.map((item) => (
+                                    <Typography key={item.item_id}>
+                                        {`${item.name.split("_").join(" ")}: $${
+                                            item.amount
+                                        }`}
+                                    </Typography>
+                                ))}
+                            </div>
+                        ))}
                     </List>
                 </CardContent>
                 <CardActions

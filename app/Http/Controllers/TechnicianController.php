@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 //use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use App\Models\Technician;
-use App\Http\Traits\ApiResponseTrait;
 
-class TechnicianController extends Controller
+class TechnicianController extends ApiController
 {
-    use ApiResponseTrait;
-
     public function create(Request $request)
     {
         $technician = Technician::create(['first_name' => $request['first_name'], 'last_name' => $request['last_name'], 'email' => $request['email'], 'phone_number' => $request['phone_number'], 'is_contractor' => $request['is_contractor'] ]);
@@ -18,11 +15,18 @@ class TechnicianController extends Controller
         return response()->json($technician, 201);
     }
 
-    public function read()
+    public function read(Request $request)
     {
-        $technicians = Technician::all();
+        $details = $request->query('details');
 
-        return response()->json(['success' => true, 'message' => 'technicians have been retrieved successfully', 'data' => $technicians], 200);
+        if ($details === true) {
+            $technicians = Technician::all();
+        } else {
+            $technicians = Technician::where('is_active', 1)->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get(['id', 'first_name', 'last_name']);
+        }
+        //$technicians = Technician::where('is_active', 1)->get(['id', 'first_name', 'last_name']);
+
+        return $this->sendSuccessResponse('all active technicians have been retrieved successfully', ['name' => 'technicians', 'value' => $technicians]);
     }
 
     public function update($id, Request $request)
