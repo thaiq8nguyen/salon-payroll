@@ -22125,14 +22125,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _views_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./views/Login */ "./resources/js/views/Login.js");
 /* harmony import */ var _views_Technicians__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Technicians */ "./resources/js/views/Technicians.js");
 /* harmony import */ var _views_Register__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/Register */ "./resources/js/views/Register.js");
 /* harmony import */ var _views_NewReceipt__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/NewReceipt */ "./resources/js/views/NewReceipt.js");
 /* harmony import */ var _views_ExistingReceipt__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/ExistingReceipt */ "./resources/js/views/ExistingReceipt.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _views_Payday__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/Payday */ "./resources/js/views/Payday.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -22144,26 +22146,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppRouter = function AppRouter() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     className: "app-router",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.BrowserRouter, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Switch, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.BrowserRouter, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Switch, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           path: "/login",
           component: _views_Login__WEBPACK_IMPORTED_MODULE_1__.default
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           path: "/technicians",
           component: _views_Technicians__WEBPACK_IMPORTED_MODULE_2__.default
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           exact: true,
           path: "/register",
           component: _views_Register__WEBPACK_IMPORTED_MODULE_3__.default
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           path: "/register/new-receipts",
           component: _views_NewReceipt__WEBPACK_IMPORTED_MODULE_4__.default
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           path: "/register/existing-receipts",
           component: _views_ExistingReceipt__WEBPACK_IMPORTED_MODULE_5__.default
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+          path: "/payday",
+          component: _views_Payday__WEBPACK_IMPORTED_MODULE_6__.default
         })]
       })
     })
@@ -23178,6 +23183,10 @@ var Navbar = function Navbar() {
           children: "Payroll X"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
           color: "inherit",
+          href: "/payday",
+          children: "Payday"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
+          color: "inherit",
           href: "/technicians",
           children: "Technicians"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
@@ -23704,19 +23713,39 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var SalonCalendar = function SalonCalendar(_ref) {
-  var handleSelectDate = _ref.handleSelectDate;
+  var enableDateSelection = _ref.enableDateSelection,
+      handleSelectDate = _ref.handleSelectDate;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(new Date()),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(dayjs__WEBPACK_IMPORTED_MODULE_1___default()().toDate()),
       _useState2 = _slicedToArray(_useState, 2),
       date = _useState2[0],
       setDate = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(dayjs__WEBPACK_IMPORTED_MODULE_1___default()().subtract(7, "day").startOf("day").toDate()),
+      _useState4 = _slicedToArray(_useState3, 2),
+      minDate = _useState4[0],
+      setMinDate = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(date),
+      _useState6 = _slicedToArray(_useState5, 2),
+      maxDate = _useState6[0],
+      setMaxDate = _useState6[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var formattedDate = dayjs__WEBPACK_IMPORTED_MODULE_1___default()(date).format("YYYY-MM-DD");
     handleSelectDate(formattedDate);
   }, [date]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!enableDateSelection) {
+      setMinDate(date);
+    } else {
+      setMinDate(dayjs__WEBPACK_IMPORTED_MODULE_1___default()().subtract(7, "day").startOf("day").toDate());
+    }
+  }, [enableDateSelection]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_calendar__WEBPACK_IMPORTED_MODULE_4__.default, {
+      maxDate: maxDate,
+      minDate: minDate,
       value: date,
       onChange: setDate
     })
@@ -24477,10 +24506,8 @@ var NewReceipt = function NewReceipt() {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      referenceTechnicians = _useState4[0],
-      setReferenceTechnicians = _useState4[1]; //const [technicians, setTechnicians] = useState([]);
-  //const [existingReceipts, setExistingReceipts] = useState([]);
-
+      pendingTechniciansWithReceipt = _useState4[0],
+      setPendingTechniciansWithReceipt = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
@@ -24496,24 +24523,28 @@ var NewReceipt = function NewReceipt() {
       _useState10 = _slicedToArray(_useState9, 2),
       drawer = _useState10[0],
       openDrawer = _useState10[1];
-  /** Getting all the technicians in the salon */
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true),
+      _useState12 = _slicedToArray(_useState11, 2),
+      enableDateSelection = _useState12[0],
+      setEnableDateSelection = _useState12[1];
+  /**Getting technician receipts, if any based on a date */
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    var getTechnicians = /*#__PURE__*/function () {
+    var getTechniciansWithoutReceipt = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var result;
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _http__WEBPACK_IMPORTED_MODULE_3__.authClient.get("technicians?details=false");
+                return _http__WEBPACK_IMPORTED_MODULE_3__.authClient.get("/technicians/receipts?date=".concat(date, "&with-receipts=no"));
 
               case 2:
-                result = _context.sent;
-                //setTechnicians(result.data.technicians);
-                setReferenceTechnicians(result.data.technicians);
+                response = _context.sent;
+                setTechniciansWithoutReceipt(response.data.technicians);
 
               case 4:
               case "end":
@@ -24523,40 +24554,8 @@ var NewReceipt = function NewReceipt() {
         }, _callee);
       }));
 
-      return function getTechnicians() {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    getTechnicians();
-  }, []);
-  /**Getting technician receipts, if any based on a date */
-
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    var getTechniciansWithoutReceipt = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return _http__WEBPACK_IMPORTED_MODULE_3__.authClient.get("/technicians/receipts?date=".concat(date, "&with-receipts=true"));
-
-              case 2:
-                response = _context2.sent;
-                setTechniciansWithoutReceipt(response.data.technicians);
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
       return function getTechniciansWithoutReceipt() {
-        return _ref2.apply(this, arguments);
+        return _ref.apply(this, arguments);
       };
     }();
 
@@ -24567,8 +24566,10 @@ var NewReceipt = function NewReceipt() {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     if (newReceipts.length) {
       openDrawer(true);
+      setEnableDateSelection(false);
     } else {
       openDrawer(false);
+      setEnableDateSelection(true);
     }
   }, [newReceipts]);
 
@@ -24577,6 +24578,15 @@ var NewReceipt = function NewReceipt() {
   };
 
   var handleAddReceipt = function handleAddReceipt(receipt) {
+    var index = techniciansWithoutReceipt.findIndex(function (technician) {
+      return technician.technician_id === receipt.technician_id;
+    });
+    var technician = techniciansWithoutReceipt.find(function (technician) {
+      return technician.technician_id === receipt.technician_id;
+    });
+    setPendingTechniciansWithReceipt([].concat(_toConsumableArray(pendingTechniciansWithReceipt), [_objectSpread(_objectSpread({}, technician), {}, {
+      index: index
+    })]));
     var pendingWithoutReceipts = techniciansWithoutReceipt.filter(function (technician) {
       return technician.technician_id !== receipt.technician_id;
     });
@@ -24591,31 +24601,37 @@ var NewReceipt = function NewReceipt() {
       return receipt.technician_id !== technicianId;
     });
     setNewReceipts(newReceiptsMinusOne);
-    var index = referenceTechnicians.findIndex(function (technician) {
-      return technician.id === technicianId;
+    var technicianWithoutReceipt = pendingTechniciansWithReceipt.find(function (technician) {
+      return technician.technician_id === technicianId;
     });
+    var pendingWithReceipt = pendingTechniciansWithReceipt.filter(function (technician) {
+      return technician.technician_id !== technicianId;
+    });
+    setPendingTechniciansWithReceipt(pendingWithReceipt);
+    var index = technicianWithoutReceipt.index;
+    delete technicianWithoutReceipt.index;
     /**Add the technician at its original index  */
 
     var tempTechnicians = _toConsumableArray(techniciansWithoutReceipt);
 
-    tempTechnicians.splice(index, 0, referenceTechnicians[index]);
+    tempTechnicians.splice(index, 0, technicianWithoutReceipt);
     setTechniciansWithoutReceipt(tempTechnicians);
   };
 
   var handleSubmit = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       var response, techniciansWithReceipt, noReceipts;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context3.next = 2;
+              _context2.next = 2;
               return _http__WEBPACK_IMPORTED_MODULE_3__.authClient.post("receipts/bulk", {
                 receipts: newReceipts
               });
 
             case 2:
-              response = _context3.sent;
+              response = _context2.sent;
               techniciansWithReceipt = response.data.data;
               noReceipts = techniciansWithoutReceipt.filter(function (technician) {
                 return !techniciansWithReceipt.some(function (receipt) {
@@ -24628,14 +24644,14 @@ var NewReceipt = function NewReceipt() {
 
             case 8:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3);
+      }, _callee2);
     }));
 
     return function handleSubmit() {
-      return _ref3.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -24673,6 +24689,7 @@ var NewReceipt = function NewReceipt() {
               item: true,
               xs: 4,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_SalonCalendar__WEBPACK_IMPORTED_MODULE_6__.default, {
+                enableDateSelection: enableDateSelection,
                 handleSelectDate: handleSelectDate
               })
             }), techniciansWithoutReceipt.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
@@ -24713,8 +24730,8 @@ var NewReceipt = function NewReceipt() {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_18__.default, {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_19__.default, {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__.default, {
-                children: referenceTechnicians.find(function (technician) {
-                  return technician.id === receipt.technician_id;
+                children: pendingTechniciansWithReceipt.find(function (technician) {
+                  return technician.technician_id === receipt.technician_id;
                 }).first_name
               })
             }), receipt.items.map(function (item, index) {
@@ -24746,19 +24763,19 @@ var NewReceipt = function NewReceipt() {
           children: "Submit"
         })
       })]
-    }), "e"]
+    })]
   });
 };
 
-var ReceiptCard = function ReceiptCard(_ref4) {
-  var technician = _ref4.technician,
-      receiptItems = _ref4.receiptItems,
-      handleAddReceipt = _ref4.handleAddReceipt;
+var ReceiptCard = function ReceiptCard(_ref3) {
+  var technician = _ref3.technician,
+      receiptItems = _ref3.receiptItems,
+      handleAddReceipt = _ref3.handleAddReceipt;
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-      _useState12 = _slicedToArray(_useState11, 2),
-      addReceiptDialog = _useState12[0],
-      setAddReceiptDialog = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      addReceiptDialog = _useState14[0],
+      setAddReceiptDialog = _useState14[1];
 
   var openAddReceiptDialog = function openAddReceiptDialog() {
     setAddReceiptDialog(true);
@@ -24791,41 +24808,41 @@ var ReceiptCard = function ReceiptCard(_ref4) {
   });
 };
 
-var ReceiptCardContainer = function ReceiptCardContainer(_ref5) {
-  var date = _ref5.date,
-      techniciansWithoutReceipt = _ref5.techniciansWithoutReceipt,
-      handleAddReceipt = _ref5.handleAddReceipt;
+var ReceiptCardContainer = function ReceiptCardContainer(_ref4) {
+  var date = _ref4.date,
+      techniciansWithoutReceipt = _ref4.techniciansWithoutReceipt,
+      handleAddReceipt = _ref4.handleAddReceipt;
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-      _useState14 = _slicedToArray(_useState13, 2),
-      receiptItems = _useState14[0],
-      setReceiptItems = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState16 = _slicedToArray(_useState15, 2),
+      receiptItems = _useState16[0],
+      setReceiptItems = _useState16[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     var getReceiptItems = /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context4.next = 2;
+                _context3.next = 2;
                 return _http__WEBPACK_IMPORTED_MODULE_3__.authClient.get("items?name=sale_receipt,tip_receipt");
 
               case 2:
-                response = _context4.sent;
+                response = _context3.sent;
                 setReceiptItems(response.data.data);
 
               case 4:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }));
 
       return function getReceiptItems() {
-        return _ref6.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }();
 
@@ -24849,7 +24866,7 @@ var ReceiptCardContainer = function ReceiptCardContainer(_ref5) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
           container: true,
           spacing: 2,
-          children: techniciansWithoutReceipt.map(function (technician) {
+          children: techniciansWithoutReceipt.map(function (technician, index) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__.default, {
               item: true,
               xs: 3,
@@ -24858,7 +24875,7 @@ var ReceiptCardContainer = function ReceiptCardContainer(_ref5) {
                 receiptItems: receiptItems,
                 handleAddReceipt: handleAddReceipt
               })
-            }, technician.technician_id);
+            }, index);
           })
         })
       })]
@@ -24867,6 +24884,38 @@ var ReceiptCardContainer = function ReceiptCardContainer(_ref5) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NewReceipt);
+
+/***/ }),
+
+/***/ "./resources/js/views/Payday.js":
+/*!**************************************!*\
+  !*** ./resources/js/views/Payday.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js");
+/* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Navbar */ "./resources/js/components/Navbar.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+var Payday = function Payday() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Navbar__WEBPACK_IMPORTED_MODULE_1__.default, {})]
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Payday);
 
 /***/ }),
 

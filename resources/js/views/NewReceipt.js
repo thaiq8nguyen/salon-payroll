@@ -78,29 +78,17 @@ const useNewReceiptStyles = makeStyles((theme) => ({
 const NewReceipt = () => {
     const classes = useNewReceiptStyles();
     const [date, setDate] = useState(dayjs(new Date()).format("YYYY-MM-DD"));
-    const [referenceTechnicians, setReferenceTechnicians] = useState([]);
-    //const [technicians, setTechnicians] = useState([]);
-    //const [existingReceipts, setExistingReceipts] = useState([]);
+    const [pendingTechniciansWithReceipt, setPendingTechniciansWithReceipt] = useState([]);
     const [techniciansWithoutReceipt, setTechniciansWithoutReceipt] = useState([]);
     const [newReceipts, setNewReceipts] = useState([]);
     const [drawer, openDrawer] = useState(false);
-
-    /** Getting all the technicians in the salon */
-    useEffect(() => {
-        const getTechnicians = async () => {
-            const result = await authClient.get("technicians?details=false");
-            //setTechnicians(result.data.technicians);
-            setReferenceTechnicians(result.data.technicians);
-        };
-
-        getTechnicians();
-    }, []);
+    const [enableDateSelection, setEnableDateSelection] = useState(true);
 
     /**Getting technician receipts, if any based on a date */
     useEffect(() => {
         const getTechniciansWithoutReceipt = async () => {
             const response = await authClient.get(
-                `/technicians/receipts?date=${date}&with-receipts=true`
+                `/technicians/receipts?date=${date}&with-receipts=no`
             );
 
             setTechniciansWithoutReceipt(response.data.technicians);
@@ -113,8 +101,10 @@ const NewReceipt = () => {
     useEffect(() => {
         if (newReceipts.length) {
             openDrawer(true);
+            setEnableDateSelection(false);
         } else {
             openDrawer(false);
+            setEnableDateSelection(true);
         }
     }, [newReceipts]);
 
@@ -123,6 +113,19 @@ const NewReceipt = () => {
     };
 
     const handleAddReceipt = (receipt) => {
+        const index = techniciansWithoutReceipt.findIndex(
+            (technician) => technician.technician_id === receipt.technician_id
+        );
+
+        const technician = techniciansWithoutReceipt.find(
+            (technician) => technician.technician_id === receipt.technician_id
+        );
+
+        setPendingTechniciansWithReceipt([
+            ...pendingTechniciansWithReceipt,
+            { ...technician, index }
+        ]);
+
         const pendingWithoutReceipts = techniciansWithoutReceipt.filter(
             (technician) => technician.technician_id !== receipt.technician_id
         );
@@ -137,13 +140,21 @@ const NewReceipt = () => {
         );
         setNewReceipts(newReceiptsMinusOne);
 
-        const index = referenceTechnicians.findIndex(
-            (technician) => technician.id === technicianId
+        const technicianWithoutReceipt = pendingTechniciansWithReceipt.find(
+            (technician) => technician.technician_id === technicianId
         );
+
+        const pendingWithReceipt = pendingTechniciansWithReceipt.filter(
+            (technician) => technician.technician_id !== technicianId
+        );
+        setPendingTechniciansWithReceipt(pendingWithReceipt);
+
+        const index = technicianWithoutReceipt.index;
+        delete technicianWithoutReceipt.index;
 
         /**Add the technician at its original index  */
         const tempTechnicians = [...techniciansWithoutReceipt];
-        tempTechnicians.splice(index, 0, referenceTechnicians[index]);
+        tempTechnicians.splice(index, 0, technicianWithoutReceipt);
         setTechniciansWithoutReceipt(tempTechnicians);
     };
 
@@ -180,7 +191,10 @@ const NewReceipt = () => {
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={4}>
-                                <SalonCalendar handleSelectDate={handleSelectDate} />
+                                <SalonCalendar
+                                    enableDateSelection={enableDateSelection}
+                                    handleSelectDate={handleSelectDate}
+                                />
                             </Grid>
                             {techniciansWithoutReceipt.length ? (
                                 <Grid item xs={8}>
@@ -222,8 +236,9 @@ const NewReceipt = () => {
                             <ListItemText>
                                 <Typography>
                                     {
-                                        referenceTechnicians.find(
-                                            (technician) => technician.id === receipt.technician_id
+                                        pendingTechniciansWithReceipt.find(
+                                            (technician) =>
+                                                technician.technician_id === receipt.technician_id
                                         ).first_name
                                     }
                                 </Typography>
@@ -252,7 +267,6 @@ const NewReceipt = () => {
                     <Button onClick={handleSubmit}>Submit</Button>
                 </Grid>
             </Drawer>
-            e
         </div>
     );
 };
@@ -313,8 +327,8 @@ const ReceiptCardContainer = ({ date, techniciansWithoutReceipt, handleAddReceip
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
-                        {techniciansWithoutReceipt.map((technician) => (
-                            <Grid item xs={3} key={technician.technician_id}>
+                        {techniciansWithoutReceipt.map((technician, index) => (
+                            <Grid item xs={3} key={index}>
                                 <ReceiptCard
                                     technician={technician}
                                     receiptItems={receiptItems}

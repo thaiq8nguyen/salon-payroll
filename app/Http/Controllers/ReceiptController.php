@@ -67,48 +67,31 @@ class ReceiptController extends ApiController
     public function show(Request $request)
     {
         $response = '';
+        //$date = $request->input('date');
         if ($request->has('date')) {
             $date = $request->input('date');
+            
             if ($request->has('with-receipts')) {
-                if ($request->input('with-receipts') === true) {
+                $withReceipts = $request->input('with-receipts');
+                if ($withReceipts === 'yes') {
+                    $techniciansWithReceipt = Technician::with(['receipt' => function ($query) use ($date) {
+                        $query->where('date', $date);
+                    }])->whereHas('receipts', function ($query) use ($date) {
+                        $query->where('date', $date);
+                    })->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get()->toArray();
+                    $response = $this->formatTechniciansWithReceipt($techniciansWithReceipt);
+                //$response = $techniciansWithReceipt;
                 } else {
                     $receipts = Technician::whereDoesntHave('receipts', function ($query) use ($date) {
                         $query->where('date', $date);
-                    })->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get(['id as technician_id','first_name']);
-                    $response = $receipts;
+                    })->orderBy('last_name', 'asc')->orderBy('first_name', 'asc')->get()->toArray();
+                    $response = $this->formatTechniciansWithoutReceipt($receipts);
                 }
             }
         }
 
-        
-
-        //$receipts = Technician::with('items')->where('date', $date)->get()->toArray();
-        //$receipts = Technician::with(['receipts:technician_id'])->where('first_name', 'Peter')->get();
-        // $receipts = Technician::with(['receipts' => function ($query) use ($date) {
-        //     $query->where('date', $date);
-        // }, 'receipts.items'])->get()->toArray();
-
-        // $receipts = Receipt::with(['items'])->where('date', $date)->get()->toArray();
-
-        // $response = array_map(
-        //     function ($receipt) {
-        //         $result = ['receipt_id' => $receipt['id'], 'technician_id' => $receipt['technician_id'], 'date' => $receipt['date'],
-        //     'items' =>
-        //         $this->formatItems($receipt['items']),
-                    
-        //     ];
-
-        //         return $result;
-        //     },
-        //     $receipts
-        // );
-
-        
-        
-
-        
-        // return response()->json(['success' => true, 'message' => 'receipts have been retrieved successfully', 'data' => $response], 200);
-        return $this->sendSuccessResponse('technicians with no receipt have been retrieved successfully', ['name' => 'technicians', 'value' => $response]);
+        return $this->sendSuccessResponse($response['message'], ['name' => 'technicians', 'value' => $response['data']]);
+        //return $this->sendSuccessResponse('test', ['name' => 'technicians', 'value' => $response]);
     }
 
     /**
@@ -142,14 +125,6 @@ class ReceiptController extends ApiController
      */
     public function destroy(Request $request)
     {
-        //$request['receipt_id'] = $receiptId;
-        // $validation = Validator::make($request, [
-        //     'receipt_id' => 'required|exists:receipts,id',
-        // ]);
-
-        // if ($validation->fails()) {
-        //     return response()->json(['error' => 'invalid inputs', 'message' => $validation->errors()]);
-        // }
         $response = [];
         foreach ($request['receipts'] as $receipt) {
             $currentReceipt = Receipt::find($receipt['receipt_id']);
@@ -169,6 +144,39 @@ class ReceiptController extends ApiController
             $result = ['item_id' => $item['id'], 'name' => $item['name'], 'amount' => $item['item_detail']['amount']];
             return $result;
         }, $items);
+
+        return $result;
+    }
+
+    private function formatTechniciansWithReceipt($technicians)
+    {
+        $result = [];
+        if (count($technicians) > 0) {
+            $data = array_map(function ($technician) {
+                $result = ['technician_id' => $technician['id'], 'first_name' => $technician['first_name'], 'last_name' => $technician['last_name'], 'receipt_id' => $technician['receipt']['id'], 'receipt_date' => $technician['receipt']['date']];
+                return $result;
+            }, $technicians);
+
+            $result = ['message' => 'technicians with receipt have been retrieved successfully', 'data' => $data];
+        } else {
+            $result = ['message' => 'no technicians with receipts on this date', 'data' => []];
+        }
+        
+        return $result;
+    }
+
+    private function formatTechniciansWithoutReceipt($technicians)
+    {
+        $result = [];
+        if (count($technicians) > 0) {
+            $data = array_map(function ($technician) {
+                $result = ['technician_id' => $technician['id'], 'first_name' => $technician['first_name'], 'last_name' => $technician['last_name']];
+                return $result;
+            }, $technicians);
+            $result = ['message' => 'technicians with receipt have been retrieved successfully', 'data' => $data];
+        } else {
+            $result = ['message' => 'no technicians without receipts on this date', 'data' => []];
+        }
 
         return $result;
     }

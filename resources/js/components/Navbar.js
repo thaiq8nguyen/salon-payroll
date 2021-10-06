@@ -34,6 +34,9 @@ const Navbar = () => {
                     <Typography variant="h5" className={classes.title}>
                         Payroll X
                     </Typography>
+                    <Button color="inherit" href="/payday">
+                        Payday
+                    </Button>
                     <Button color="inherit" href="/technicians">
                         Technicians
                     </Button>
