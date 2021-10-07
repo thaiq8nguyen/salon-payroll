@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\PeriodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +43,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/technicians/receipts', [ReceiptController::class, 'show']);
     Route::put('/receipts', [ReceiptController::class, 'edit']);
     Route::delete('/receipts', [ReceiptController::class, 'destroy']);
+
+    Route::get('/periods', [PeriodController::class, 'index']);
 
     //Bulk processing
     Route::post('/receipts/bulk', [ReceiptController::class, 'createMany']);
