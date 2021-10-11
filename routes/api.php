@@ -7,6 +7,7 @@ use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PeriodController;
+use App\Http\Controllers\PayrollController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //Bulk processing
     Route::post('/receipts/bulk', [ReceiptController::class, 'createMany']);
+
+    Route::get('/payrolls/{periodId}/receipts', [PayrollController::class, 'getReceipts']);
+    Route::get('/payrolls/{periodId}/total-receipts-amount', [PayrollController::class, 'getTotalReceiptsAmount']);
     
     Route::resource('items', ItemController::class);
 });

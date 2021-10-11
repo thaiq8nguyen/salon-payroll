@@ -17,4 +17,5 @@ use App\Http\Controllers\ReactController;
 
 
 Route::view('/{any}', 'welcome')->where('any', '.*');
+
 //Route::view('/', 'welcome');

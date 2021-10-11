@@ -14,6 +14,6 @@ class Item extends Model
 
     public function receipts()
     {
-        return $this->belongsToMany(Receipt::class);
+        return $this->belongsToMany(Receipt::class)->as('item_detail')->withPivot('amount');
     }
 }

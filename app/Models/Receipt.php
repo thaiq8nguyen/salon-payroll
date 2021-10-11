@@ -15,6 +15,7 @@ class Receipt extends Model
     public function items()
     {
         return $this->belongsToMany(Item::class)->as('item_detail')->withPivot('amount')->withTimestamps();
+        //return $this->belongsToMany(Item::class)->withPivot('amount')->withTimestamps();
     }
 
     public function technician()
